@@ -37,6 +37,7 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_help(char *args);
+static int cmd_si_[N](char *args);
 
 static struct {
   char *name;
@@ -46,7 +47,7 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-
+  { "si [N]","Continue the program with N commands",cmd_si_[N]},
   /* TODO: Add more commands */
 
 };
@@ -75,6 +76,28 @@ static int cmd_help(char *args) {
   }
   return 0;
 }
+
+static int cmd_si_[N](char *args){
+	char *arg= strtok(NULL," " );
+	int i;
+	if (arg ==NULL) {
+	
+	for (ifor (i = 0; i < NR_CMD; i ++) {
+	  printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
+	}
+       }
+	else {
+	  for (i =0; i < NR_CMD; i ++) {
+	    if (strcmp(arg, cmd_table[i].name) == 0) {
+	      printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description); 
+		return 0;
+       }
+	}
+	 printf("Unknown command '%s'\n", arg);
+     }
+     return 0;
+}  
+
 
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
