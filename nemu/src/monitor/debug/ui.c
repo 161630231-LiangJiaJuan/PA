@@ -80,16 +80,15 @@ void exec_wrapper(bool);
 
 static int cmd_si(char *args){
 	char *arg= strtok(NULL," " );
-	int i;
+	int i=1;
 	if (arg ==NULL) {
-	for (i = 0; i < NR_CMD; i ++) {
-        printf("Please input a number less than 10 after si ");
-        
-       }
+    bool print_flag = i<10;
+    exec_wrapper(print_flag);
     }
 	else {
-    int N=atoi(arg);
-       bool print_flag = N<10;
+    int N=1;
+    N=atoi(arg);
+       bool print_flag = N<11;
         for (;N>0;N--){
        exec_wrapper(print_flag);
         }
