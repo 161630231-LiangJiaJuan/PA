@@ -86,7 +86,8 @@ static int cmd_si(char *args){
 	}
        }
 	else {
-	  for (i =0; i < NR_CMD; i ++) {
+    int N=atoi(arg);
+	  for (i =0; i < N; i ++) {
 	    if (strcmp(arg, cmd_table[i].name) == 0) {
 	      printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description); 
 		return 0;
