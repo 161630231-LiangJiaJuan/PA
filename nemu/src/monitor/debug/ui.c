@@ -76,6 +76,7 @@ static int cmd_help(char *args) {
   }
   return 0;
 }
+void exec_wrapper(bool);
 
 static int cmd_si(char *args){
 	char *arg= strtok(NULL," " );
@@ -88,13 +89,14 @@ static int cmd_si(char *args){
 	else {
     int N=atoi(arg);
     if(N>NR_CMD){
-	 printf("Unknown command '%s'\n", arg);
+	 printf("Not enough  command '%s'\n", arg);
      return 0;
-}
-	  for (i =0; i < N; i ++) { 
-	  printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
-       }
-	}
+    }
+       bool print_flag = N<10;
+        for (;N>0;N--){
+       exec_wrapper(print_flag);
+        }
+    }	
     return 0;
 }  
 
