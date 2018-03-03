@@ -83,9 +83,10 @@ static int cmd_si(char *args){
 	int i;
 	if (arg ==NULL) {
 	for (i = 0; i < NR_CMD; i ++) {
-	  printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
-	}
+        printf("Please input a number less than 10 after si ");
+        
        }
+    }
 	else {
     int N=atoi(arg);
     if(N>NR_CMD){
