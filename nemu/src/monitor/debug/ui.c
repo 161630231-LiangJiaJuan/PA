@@ -87,14 +87,12 @@ static int cmd_si(char *args){
        }
 	else {
     int N=atoi(arg);
-	  for (i =0; i < N; i ++) {
-	    if (strcmp(arg, cmd_table[i].name) == 0) {
-	      printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description); 
+	  for (i =0; i < N; i ++) { 
+	  printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
 		return 0;
        }
 	}
-	// printf("Unknown command '%s'\n", arg);
-     }
+	 printf("Unknown command '%s'\n", arg);
      return 0;
 }  
 
