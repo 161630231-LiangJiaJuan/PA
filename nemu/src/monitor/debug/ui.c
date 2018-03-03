@@ -89,10 +89,6 @@ static int cmd_si(char *args){
     }
 	else {
     int N=atoi(arg);
-    if(N>NR_CMD){
-	 printf("Not enough  command '%s'\n", arg);
-     return 0;
-    }
        bool print_flag = N<10;
         for (;N>0;N--){
        exec_wrapper(print_flag);
