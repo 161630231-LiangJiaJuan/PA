@@ -87,6 +87,7 @@ static int cmd_si(char *args){
        }
 	else {
     int N=atoi(arg);
+    printf ("%d",N);
 	  for (i =0; i < N; i ++) { 
 	  printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
 		return 0;
