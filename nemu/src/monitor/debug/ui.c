@@ -107,11 +107,11 @@ static int cmd_info(char *args){
         printf("w , print the watchpoint status");
         return 0;
     }
-    if (strlen(arg)>1){
+    else if (strlen(arg)>1){
         printf("Unknow command %s\n",arg);
         return 0;
     }
-    else{
+    else {
         char key = *arg;
         switch(key){
             case 'r':{
