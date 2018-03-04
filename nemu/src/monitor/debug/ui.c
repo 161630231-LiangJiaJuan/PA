@@ -101,7 +101,7 @@ static int cmd_si(char *args){
 }  
 
 static int cmd_info(char *args){
-    char *arg= strtok("NULL"," ");
+    char *arg= strtok(NULL," ");
     if (arg == NULL){
         printf("r , print the register status");
         printf("w , print the watchpoint status");
