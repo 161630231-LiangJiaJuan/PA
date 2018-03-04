@@ -8,7 +8,6 @@
 #include <readline/history.h>
 
 void cpu_exec(uint64_t);
-
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
   static char *line_read = NULL;
@@ -73,7 +72,7 @@ static int cmd_help(char *args) {
         return 0;
       }
     }
-    printf("Unknown command '%s'\n", arg);`
+    printf("Unknown command '%s'\n", arg);
   }
   return 0;
 }
@@ -102,6 +101,24 @@ static int cmd_si(char *args){
 }  
 
 static int cmd_info(char *args){
+    char *arg= strtok("NULL"," ");
+    if (arg == NULL){
+        printf("r , print the register status");
+        printf("w , print the watchpoint status");
+        return 0;
+    }
+    if (strlen(arg)>1){
+        printf("Unknow command %s\n",arg);
+        return 0;
+    }
+    else{
+        char key = *arg;
+        switch(key){
+            case 'r':{
+
+            }
+        }
+    }
     return 0;
 }
 void ui_mainloop(int is_batch_mode) {
