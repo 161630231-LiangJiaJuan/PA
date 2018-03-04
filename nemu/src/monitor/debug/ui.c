@@ -48,7 +48,7 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   { "si","Continue the program with N commands",cmd_si},
-  {"info","Print the program status",cmd_info}  
+  {"info","Print the program status",cmd_info} , 
   /* TODO: Add more commands */
 };
 
@@ -115,7 +115,7 @@ static int cmd_info(char *args){
         char key = *arg;
         switch(key){
             case 'r':{
-
+                break;
             }
         }
     }
