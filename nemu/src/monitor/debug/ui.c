@@ -3,6 +3,8 @@
 #include "monitor/watchpoint.h"
 #include "nemu.h"
 
+#include "cpu/reg.h"
+
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -103,8 +105,8 @@ static int cmd_si(char *args){
 static int cmd_info(char *args){
     char *arg= strtok(NULL," ");
     if (arg == NULL){
-        printf("r , print the register status");
-        printf("w , print the watchpoint status");
+        printf("r , print the register status\n");
+        printf("w , print the watchpoint status\n");
         return 0;
     }
     else if (strlen(arg)>1){
@@ -115,6 +117,7 @@ static int cmd_info(char *args){
         char key = *arg;
         switch(key){
             case 'r':{
+                printf("%d\n",cpu.eax);
                 break;
             }
         }
