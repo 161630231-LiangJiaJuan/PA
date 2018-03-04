@@ -151,7 +151,7 @@ static int cmd_scan(char *args){
         for (i=0;i<N;i++){
 
         }
-        printf("%o\n",*expr);
+        printf("%x\n",*expr);
         return 0;
     }
 return 0;
