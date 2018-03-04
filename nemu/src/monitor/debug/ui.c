@@ -140,18 +140,20 @@ static int cmd_scan(char *args){
         printf("No argument given\n");
         return 0;
     }
-    char *expr=strtok(NULL," ");
-    if (expr == NULL){
+    char *arg2=strtok(NULL," ");
+    if (arg2 == NULL){
         printf("No experation given\n");
         return 0;
     }
     else {
         int N=atoi(arg);
+        int expr=atoi(arg2);
         int i=0;
+        unsigned char *p=(unsigned char *)&expr;
         for (i=0;i<N;i++){
-
+        printf("%x",*(p+i));
+            
         }
-        printf("%x\n",*expr);
         return 0;
     }
 return 0;
