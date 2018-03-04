@@ -39,6 +39,7 @@ static int cmd_q(char *args) {
 static int cmd_help(char *args);
 static int cmd_si(char *args);
 static int cmd_info(char *args);
+static int cmd_scan(char *args);
 
 static struct {
   char *name;
@@ -50,6 +51,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si","Continue the program with N commands",cmd_si},
   {"info","Print the program status",cmd_info} , 
+  {"scan","Scan the memory",cmd_scan },
   /* TODO: Add more commands */
 };
 
@@ -129,6 +131,30 @@ static int cmd_info(char *args){
         }
     }
     return 0;
+}
+
+static int cmd_scan(char *args){
+
+    char *arg=strtok(NULL," ");
+    if (arg==NULL){
+        printf("No argument given\n");
+        return 0;
+    }
+    char *expr=strtok(NULL," ");
+    if (expr == NULL){
+        printf("No experation given\n");
+        return 0;
+    }
+    else {
+        int N=atoi(arg);
+        int i=0;
+        for (i=0;i<N;i++){
+
+        }
+        printf("%o\n",*expr);
+        return 0;
+    }
+return 0;
 }
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
