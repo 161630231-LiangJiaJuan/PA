@@ -73,7 +73,7 @@ static int cmd_help(char *args) {
         return 0;
       }
     }
-    printf("Unknown command '%s'\n", arg);
+    printf("Unknown command '%s'\n", arg);`
   }
   return 0;
 }
@@ -87,7 +87,7 @@ static int cmd_si(char *args){
     exec_wrapper(print_flag);
     }
     else if(atoi(arg)<=0){
-        printf("There must be a number more than 0");
+        printf("There must be a number more than 0\n");
         return 0;
     }
 	else {
