@@ -149,7 +149,7 @@ static int cmd_scan(char *args){
         int N=atoi(arg);
         int adr[N];
         arg2=arg2+2;//move the arg2 to ignore 0x
-        int *expr = NULL;
+        int *expr = (int *)malloc(sizeof(int));
         sscanf(arg2,"%x",expr);
         //printf("%d\n0",expr);
         int i=0;
