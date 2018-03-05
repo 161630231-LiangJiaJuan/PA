@@ -39,7 +39,7 @@ static int cmd_q(char *args) {
 static int cmd_help(char *args);
 static int cmd_si(char *args);
 static int cmd_info(char *args);
-static int cmd_scan(char *args);
+static int cmd_x(char *args);
 
 static struct {
   char *name;
@@ -51,7 +51,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si","Continue the program with N commands",cmd_si},
   {"info","Print the program status",cmd_info} , 
-  {"scan","Scan the memory",cmd_scan },
+  {"x","Scan the memory",cmd_x },
   /* TODO: Add more commands */
 };
 
@@ -133,7 +133,7 @@ static int cmd_info(char *args){
     return 0;
 }
 
-static int cmd_scan(char *args){
+static int cmd_x(char *args){
 
     char *arg=strtok(NULL," ");
     if (arg==NULL){
