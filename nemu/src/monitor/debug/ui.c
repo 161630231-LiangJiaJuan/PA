@@ -147,13 +147,15 @@ static int cmd_scan(char *args){
     }
     else {
         int N=atoi(arg);
+        int adr[N];
         arg2=arg2+2;//move the arg2 to ignore 0x
         int expr = 0;
         sscanf(arg2,"%x",&expr);
-        printf("%d\n0",expr);
+        //printf("%d\n0",expr);
         int i=0;
         for (i=0;i<N;i++){
-            
+            adr[i]=paddr_read(expr,4);
+            printf("%x",adr[i]);
         }
         return 0;
     }
