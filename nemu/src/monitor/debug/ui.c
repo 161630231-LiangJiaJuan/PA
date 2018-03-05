@@ -147,11 +147,12 @@ static int cmd_scan(char *args){
     }
     else {
         int N=atoi(arg);
-        int expr=atoi(arg2);
+        arg2=arg2+2;//move the arg2 to ignore 0x
+        int expr = 0;
+        sscanf(arg2,"%x",&expr);
+        printf("%d\n0",expr);
         int i=0;
-        unsigned char *p=(unsigned char *)&expr;
         for (i=0;i<N;i++){
-        printf("%x",*(p+i));
             
         }
         return 0;
