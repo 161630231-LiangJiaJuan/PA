@@ -154,8 +154,8 @@ static int cmd_scan(char *args){
         //printf("%d\n0",expr);
         int i=0;
         for (i=0;i<N;i++){
-            adr[i]=paddr_read(*expr,1);
-            expr=expr+1;
+            adr[i]=paddr_read(*expr,4);
+            *expr+=4;
             printf("%x\n",adr[i]);
         }
         return 0;
