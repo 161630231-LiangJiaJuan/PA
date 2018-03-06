@@ -165,7 +165,7 @@ static int cmd_x(char *args){
         for (i=0;i<N;i++){
             adr[i]=paddr_read(*expr,len);
             *expr+=len;
-            printf("0x%0x\n",adr[i]);
+            printf("0x%0*x\n",len*2,adr[i]);
         }
         return 0;
     
