@@ -150,7 +150,7 @@ static int cmd_x(char *args){
     if(arg3!=NULL){
         len=atoi(arg3);
     }
-    else { 
+      
         if(len>4){
             printf("Too long size\n");
             return 0;
@@ -168,7 +168,7 @@ static int cmd_x(char *args){
             printf("0x%x\n",adr[i]);
         }
         return 0;
-    }
+    
 return 0;
 }
 void ui_mainloop(int is_batch_mode) {
