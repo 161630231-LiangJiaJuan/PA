@@ -145,13 +145,12 @@ static int cmd_x(char *args){
         printf("No experation given\n");
         return 0;
     }
-    int len=0;
+    int len=4;
     char *arg3=strtok(NULL," ");
-    if(arg3==NULL){
-        len=4;
+    if(arg3!=NULL){
+        len=atoi(arg3);
     }
     else { 
-        len=atoi(arg3);
         if(len>4){
             printf("Too long size\n");
             return 0;
