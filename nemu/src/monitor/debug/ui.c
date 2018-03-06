@@ -49,9 +49,9 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-  { "si","Continue the program with N commands",cmd_si},
-  {"info","Print the program status",cmd_info} , 
-  {"x","Scan the memory",cmd_x },
+  { "si","Continue the program with N commands,si N",cmd_si},
+  {"info","Print the program status，r:register,w:watchpoint",cmd_info} , 
+  {"x","Scan the memory,x N address length(default as 4)",cmd_x },
   /* TODO: Add more commands */
 };
 
@@ -145,7 +145,17 @@ static int cmd_x(char *args){
         printf("No experation given\n");
         return 0;
     }
-    else {
+    int len=0;
+    char *arg3=strtok(NULL," ");
+    if(arg3==NULL){
+        len=4;
+    }
+    else { 
+        len=atoi(arg3);
+        if(len>4){
+            printf("Too long size\n");
+            return 0;
+        }
         int N=atoi(arg);
         int adr[N];
         arg2=arg2+2;//move the arg2 to ignore 0x
@@ -154,8 +164,8 @@ static int cmd_x(char *args){
         //printf("%d\n0",expr);
         int i=0;
         for (i=0;i<N;i++){
-            adr[i]=paddr_read(*expr,4);
-            *expr+=4;
+            adr[i]=paddr_read(*expr,len);
+            *expr+=len;
             printf("0x%x\n",adr[i]);
         }
         return 0;
