@@ -170,6 +170,7 @@ static int cmd_x(char *args){
                 if (one == 0) break;
                 printf("0x%*x ",one*2,paddr_read(*expr+i*4+j,one));
             }
+            printf("\n");
         }
         return 0;
     
