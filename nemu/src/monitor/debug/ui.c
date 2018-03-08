@@ -118,14 +118,15 @@ static int cmd_info(char *args){
         char key = *arg;
         switch(key){
             case 'r':{
-                printf("eax: %d\n",cpu.eax);
-                printf("ecx: %d\n",cpu.ecx);
-                printf("edx: %d\n",cpu.edx);
-                printf("ebx: %d\n",cpu.ebx);
-                printf("esp: %d\n",cpu.esp);
-                printf("ebp: %d\n",cpu.ebp);
-                printf("esi: %d\n",cpu.esi);
-                printf("edi: %d\n",cpu.edi);
+                printf("eax: 0x%x\n",cpu.eax);
+                printf("ecx: 0x%x\n",cpu.ecx);
+                printf("edx: 0x%x\n",cpu.edx);
+                printf("ebx: 0x%x\n",cpu.ebx);
+                printf("esp: 0x%x\n",cpu.esp);
+                printf("ebp: 0x%x\n",cpu.ebp);
+                printf("esi: 0x%x\n",cpu.esi);
+                printf("edi: 0x%x\n",cpu.edi);
+                printf("eip: 0x%x\n",cpu.eip);
                 return 0;
             }
         }
@@ -165,7 +166,7 @@ static int cmd_x(char *args){
         for (i=0;i<N;i++){
             adr[i]=paddr_read(*expr,len);
             *expr+=len;
-            printf("0x%0*x\n",len*2,adr[i]);
+            printf("%x   0x%0*x\n",*expr,len*2,adr[i]);
         }
         return 0;
     
