@@ -146,27 +146,30 @@ static int cmd_x(char *args){
         printf("No experation given\n");
         return 0;
     }
-    int len=4;
+    int len=4,one=1;
     char *arg3=strtok(NULL," ");
     if(arg3!=NULL){
         len=atoi(arg3);
+        one=0;
     }
-      
         if(len>4){
             printf("Too long size\n");
             return 0;
         }
         int N=atoi(arg);
         int adr[N];
-        arg2=arg2+2;//move the arg2 to ignore 0x
+        arg2=arg2+2;
         int *expr = (int *)malloc(sizeof(int));
         sscanf(arg2,"%x",expr);
-        //printf("%d\n0",expr);
-        int i=0;
+      
+        int i=0,j=0;
         for (i=0;i<N;i++){
-            adr[i]=paddr_read(*expr,len);
-            *expr+=len;
-            printf("%x   0x%0*x\n",*expr,len*2,adr[i]);
+            adr[i]=paddr_read(*expr+i*4,len);
+            printf("%x   0x%0*x   ",*expr,len*2,adr[i]);
+            for(j=0;j<len;j++){
+                if (one == 0) break;
+                printf("0x%*x ",one*2,paddr_read(*expr+i*4+j,one));
+            }
         }
         return 0;
     
