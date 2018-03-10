@@ -156,6 +156,7 @@ int eval(int p,int q){
         assert(0);
     }
     else if(p==q){
+        assert(0);
         return atoi(tokens[p].str);
     }
     else if(check_parentheses(p,q)== true){
@@ -190,7 +191,6 @@ uint32_t expr(char *e, bool *success) {
           printf("%s",tokens[i].str);
       }
       printf("=");
-      assert(0);
       return eval(0,nr_token-1);
   }
 
