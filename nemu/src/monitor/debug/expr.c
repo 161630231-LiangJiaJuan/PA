@@ -85,7 +85,11 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
-          default: TODO();
+          default:{
+                tokens[nr_token].type=rules[i].token_type;
+                strcpy(tokens[nr_token].str,substr_start);
+                nr_token++;
+          } ;
         }
 
         break;
