@@ -159,6 +159,7 @@ int eval(int p,int q){
         assert(0);
     }
     else if(p==q){
+        assert(0);
         return atoi(tokens[p].str);
     }
     else if(check_parentheses(p,q)== true){
