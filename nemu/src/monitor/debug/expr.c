@@ -165,7 +165,7 @@ int eval(int p,int q){
         int op =dom_op(p,q);
         int val1=eval(p,op-1);
         int val2=eval(op+1,q);
-
+        assert(0);
         switch(tokens[op].type){
             case TK_MU : return val1*val2;
             case TK_DI : return val1/val2;
@@ -179,6 +179,7 @@ int eval(int p,int q){
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
+    assert(0);
     return 0;
   }
 
