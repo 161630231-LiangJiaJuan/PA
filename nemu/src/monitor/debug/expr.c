@@ -1,4 +1,5 @@
 #include "nemu.h"
+#include <stdlib.h>
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
  */
@@ -124,10 +125,10 @@ bool check_parentheses(int p,int q){
         return false;
 }
 
-int dom_op(){
+int dom_op(int p,int q){
     int i;
     int result=0;
-    for(i=0;i<nr_token;i++){
+    for(i=p;i<=q;i++){
         if(tokens[i].type==TK_LPA){
             while(tokens[i].type!=TK_RPA){
                 i++;
@@ -145,6 +146,32 @@ int dom_op(){
     return 0;
 }
 
+int eval(int p,int q){
+    if(p>q){
+        Log("Bad expression\n");
+        assert(0);
+    }
+    else if(p==q){
+        return atoi(tokens[p].str);
+    }
+    else if(check_parentheses(p,q)== true){
+        return eval(p+1,q-1);
+    }
+    else {
+        int op =dom_op(p,q);
+        int val1=eval(p,op-1);
+        int val2=eval(op+1,q);
+
+        switch(tokens[op].type){
+            case TK_MU : return val1*val2;
+            case TK_DI : return val1/val2;
+            case TK_PL :return val1+val2;
+            case TK_SUB : return val1-val2;
+            default : assert(0);
+        }
+    }
+    return 0;
+}
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
@@ -152,7 +179,9 @@ uint32_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  
+  else {
+      return eval(0,nr_token-1);
+  }
 
   return 0;
 }
