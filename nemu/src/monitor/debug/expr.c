@@ -128,6 +128,7 @@ bool check_parentheses(int p,int q){
 int dom_op(int p,int q){
     int i;
     int result=0;
+    if(p>q)  assert(0);
     for(i=p;i<=q;i++){
         if(tokens[i].type==TK_LPA){
             while(tokens[i].type!=TK_RPA){
