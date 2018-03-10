@@ -130,7 +130,7 @@ bool check_parentheses(int p,int q){
 
 int dom_op(int p,int q){
     int i;
-    int result=0;
+    int result=0,op=0;
     if(p>q)  assert(0);
     for(i=p;i<=q;i++){
         if(tokens[i].type==TK_LPA){
@@ -144,10 +144,10 @@ int dom_op(int p,int q){
         if(tokens[i].type>=result){
             result=tokens[i].type;
             Log("result: %d\n",result);
-        
+            op=i;
         }
     }
-    return result;
+    return op;
 }
 
 int eval(int p,int q){
