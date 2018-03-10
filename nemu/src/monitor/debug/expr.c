@@ -103,13 +103,14 @@ static bool make_token(char *e) {
 
   return true;
 }
+
 bool check_parentheses(int p,int q){
-    if (p>q){
+    if (p>q||q>nr_token){
         Log("Bad expression in check_parentheses\n");
         return false;
     }
     int i=0,success=0;
-    for(i=p;i<q;i++){
+    for(i=p;i<=q;i++){
         if(tokens[i].type==TK_LPA){
             success++;
         }
@@ -122,6 +123,28 @@ bool check_parentheses(int p,int q){
     else
         return false;
 }
+
+int dom_op(){
+    int i;
+    int result=0;
+    for(i=0;i<nr_token;i++){
+        if(tokens[i].type==TK_LPA){
+            while(tokens[i].type!=TK_RPA){
+                i++;
+            }
+            continue;
+        }//end if ,to skip the parentheses
+        if(tokens[i].type<TK_MU||tokens[i].type>TK_SUB) continue; // to skip the not opretor
+        
+        if(tokens[i].type>=result){
+            result=tokens[i].type;
+            Log("result: %d\n",result);
+        
+        }
+    }
+    return 0;
+}
+
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
