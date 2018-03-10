@@ -144,7 +144,7 @@ int dom_op(int p,int q){
         
         }
     }
-    return 0;
+    return result;
 }
 
 int eval(int p,int q){
