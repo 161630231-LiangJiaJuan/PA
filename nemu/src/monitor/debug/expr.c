@@ -23,9 +23,9 @@ static struct rule {
 
   {" +", TK_NOTYPE},    // spaces
   {"\\*",TK_MU},        //multiplication
-  {"\\/", '/'},         // division
-  {"\\+", '+'},         // plus
-  {"\\-", '-'},         // subtraction
+  {"\\/",TK_DI},         // division
+  {"\\+",TK_PL},         // plus
+  {"\\-",TK_SUB},         // subtraction
   {"[1-9][0-9]{0,3}", TK_NUM},         // subtraction
   {"\\(", TK_LPA},         // subtraction
   {"\\)", TK_RPA},         // subtraction
