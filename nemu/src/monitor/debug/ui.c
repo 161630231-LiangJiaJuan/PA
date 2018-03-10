@@ -40,6 +40,7 @@ static int cmd_help(char *args);
 static int cmd_si(char *args);
 static int cmd_info(char *args);
 static int cmd_x(char *args);
+static int cmd_p(char *args);
 
 static struct {
   char *name;
@@ -52,7 +53,8 @@ static struct {
   { "si","Continue the program with N commands,si N",cmd_si},
   {"info","Print the program status，r:register,w:watchpoint",cmd_info} , 
   {"x","Scan the memory,x N address length(default as 4)",cmd_x },
-  /* TODO: Add more commands */
+  {"p","evaluate the expression,p expr",cmd_p}
+/* TODO: Add more commands */
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
@@ -175,6 +177,22 @@ static int cmd_x(char *args){
         return 0;
     
 return 0;
+}
+
+//static bool make_token(char *e);
+static int cmd_p(char *args){
+    char *arg=strtok(NULL," ");
+    if(arg==NULL){
+
+        printf("No expression given\n");
+        return 0;
+    }
+    else{
+        bool succeed;
+        printf("%d\n",expr(arg,&succeed));
+        
+    }
+    return 0;
 }
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
