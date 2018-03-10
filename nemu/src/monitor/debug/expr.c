@@ -139,7 +139,10 @@ int dom_op(int p,int q){
             }
             continue;
         }//end if ,to skip the parentheses
-        else if(tokens[i].type<TK_MU||tokens[i].type>TK_SUB) continue; // to skip the not opretor
+        else if(tokens[i].type<TK_MU||tokens[i].type>TK_SUB){
+            assert(0);
+            continue;
+        } //end if, to skip the not opretor
         
         else if(tokens[i].type>=result){
             result=tokens[i].type;
