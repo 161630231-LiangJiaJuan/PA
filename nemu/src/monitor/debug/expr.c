@@ -156,11 +156,10 @@ int eval(int p,int q){
         assert(0);
     }
     else if(p==q){
-        assert(0);
         return atoi(tokens[p].str);
     }
     else if(check_parentheses(p,q)== true){
-        return eval(p+1,q-1);
+        //return eval(p+1,q-1);
     }
     else {
         int op =dom_op(p,q);
