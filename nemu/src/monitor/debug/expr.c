@@ -26,7 +26,7 @@ static struct rule {
   {"\\/", '/'},         // division
   {"\\+", '+'},         // plus
   {"\\-", '-'},         // subtraction
-  {"\\d+", TK_NUM},         // subtraction
+  {"^[1-9]\\d*$", TK_NUM},         // subtraction
   {"\\(", TK_LPA},         // subtraction
   {"\\)", TK_RPA},         // subtraction
   {"==", TK_EQ}         // equal
