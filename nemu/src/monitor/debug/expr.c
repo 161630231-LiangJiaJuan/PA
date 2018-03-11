@@ -183,7 +183,20 @@ int eval(int p,int q){
     }
     return 0;
 }
+
+void init_tokens(){
+    int i,j;
+    for(i=0;i<32;i++){
+        tokens[i].type=0;
+        for(j=0;j<32;j++){
+            tokens[i].str[j]='\0';
+        }
+    }
+    return ;
+}
 uint32_t expr(char *e, bool *success) {
+    init_tokens();// 
+
   if (!make_token(e)) {
     *success = false;
     assert(0);
