@@ -216,7 +216,7 @@ void negative(){
 void dereference(){
     int i;
     for (i=0;i<nr_token;i++){
-        if (tokens[i].type == TK_SUB && tokens[i-1].type < TK_NUM ){
+        if (tokens[i].type == TK_DER && tokens[i-1].type < TK_NUM ){
             tokens[i].type=TK_DER;
         }
     }
@@ -233,8 +233,8 @@ uint32_t expr(char *e, bool *success) {
 
   /* TODO: Insert codes to evaluate the expression. */
   else {
-      negative();
-      dereference();
+     // negative();
+     // dereference();
       int i;
       printf("nr_token: %d\n",nr_token);
       for (i=0;i<nr_token;i++){
