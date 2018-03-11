@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-  TK_EQ,TK_MU,TK_DI,TK_PL,TK_SUB,TK_LPA,TK_RPA,TK_NUM,TK_NEG,TK_DER,TK_NOTYPE    
+  TK_EQ=0,TK_MU,TK_DI,TK_PL,TK_SUB,TK_LPA,TK_RPA,TK_NUM,TK_NEG,TK_DER,TK_NOTYPE    
   /* TODO: Add more token types */
 
 };
@@ -133,7 +133,7 @@ bool check_parentheses(int p,int q){
 }
 
 int dom_op(int p,int q){
-    int i;
+    int i,j;
     int result=0,op=0;
     if(p>q)  assert(0);
     if (tokens[p].type==TK_LPA  &&  tokens[q].type==TK_RPA){
@@ -141,8 +141,12 @@ int dom_op(int p,int q){
     }
     for(i=p;i<=q;i++){
         if(tokens[i].type==TK_LPA){
-            while(tokens[i].type!=TK_RPA){
+            j=0;
+            j++;
+            while(j!=0){
                 i++;
+                if(tokens[i].type == TK_LPA) j++;
+                if(tokens[i].type == TK_RPA) j--;
             }
             continue;
         }//end if ,to skip the parentheses
