@@ -157,13 +157,13 @@ int dom_op(int p,int q){
         else if ( (tokens[i].type>=TK_PL && tokens[i].type <=TK_SUB )  ){
             result=tokens[i].type;
             op=i;
-        Log("operator : %s\n",tokens[op].str);
+//        Log("operator : %s\n",tokens[op].str);
             continue;
         }
         else if(tokens[i].type<=TK_DI && result <= TK_DI ){
             result=tokens[i].type;
             op=i;
-        Log("operator : %s\n",tokens[op].str);
+//        Log("operator : %s\n",tokens[op].str);
             continue;
         }
     }
