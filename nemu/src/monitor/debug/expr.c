@@ -145,7 +145,7 @@ int dom_op(int p,int q){
         
         else if(tokens[i].type>=result){
             result=tokens[i].type;
-            Log("result: %d\n",result);
+            Log("operator : %s\n",tokens[i].str);
             op=i;
         }
     }
