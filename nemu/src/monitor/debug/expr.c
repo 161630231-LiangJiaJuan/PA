@@ -140,7 +140,6 @@ int dom_op(int p,int q){
             continue;
         }//end if ,to skip the parentheses
         else if(tokens[i].type<TK_MU||tokens[i].type>TK_SUB){
-            assert(0);
             continue;
         } //end if, to skip the not opretor
         
@@ -159,18 +158,15 @@ int eval(int p,int q){
         assert(0);
     }
     else if(p==q){
-        assert(0);
         return atoi(tokens[p].str);
     }
-    else if(check_parentheses(p,q)== true){
+   // else if(check_parentheses(p,q)== true){
         //return eval(p+1,q-1);
-    }
+   // }
     else {
-        assert(0);
         int op =dom_op(p,q);
         int val1=eval(p,op-1);
         int val2=eval(op+1,q);
-        assert(0);
         switch(tokens[op].type){
             case TK_MU : return val1*val2;
             case TK_DI : return val1/val2;
