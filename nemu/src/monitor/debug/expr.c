@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,TK_MU,TK_DI,TK_PL,TK_SUB,TK_LPA,TK_RPA,TK_NUM    
+  TK_EQ,TK_MU,TK_DI,TK_PL,TK_SUB,TK_LPA,TK_RPA,TK_NUM,TK_NEG,TK_DER,TK_NOTYPE    
   /* TODO: Add more token types */
 
 };
@@ -114,6 +114,7 @@ bool check_parentheses(int p,int q){
         return false;
     }
     int i=0,success=0;
+    if (tokens[p].type == TK_LPA){
     for(i=p;i<=q;i++){
         if(tokens[i].type==TK_LPA){
             success++;
@@ -122,7 +123,10 @@ bool check_parentheses(int p,int q){
             success--;
         }
     }
-    if(success==0)
+    }
+    else return false;
+
+    if(success==0 && tokens[q].type == TK_RPA)
         return true;
     else
         return false;
@@ -132,6 +136,9 @@ int dom_op(int p,int q){
     int i;
     int result=0,op=0;
     if(p>q)  assert(0);
+    if (tokens[p].type==TK_LPA  &&  tokens[q].type==TK_RPA){
+        return true;
+    }
     for(i=p;i<=q;i++){
         if(tokens[i].type==TK_LPA){
             while(tokens[i].type!=TK_RPA){
@@ -165,9 +172,9 @@ int eval(int p,int q){
     else if(p==q){
         return atoi(tokens[p].str);
     }
-   // else if(check_parentheses(p,q)== true){
-        //return eval(p+1,q-1);
-   // }
+   else if(check_parentheses(p,q)== true){
+        return eval(p+1,q-1);
+    }
     else {
         int op =dom_op(p,q);
         Log("operator : %s\n",tokens[op].str);
@@ -194,6 +201,24 @@ void init_tokens(){
     }
     return ;
 }
+void negative(){
+    int i;
+    for (i=0;i<nr_token;i++){
+        if (tokens[i].type == TK_SUB && tokens[i-1].type < TK_NUM ){
+            tokens[i].type=TK_NEG;
+        }
+    }
+}
+
+void dereference(){
+    int i;
+    for (i=0;i<nr_token;i++){
+        if (tokens[i].type == TK_SUB && tokens[i-1].type < TK_NUM ){
+            tokens[i].type=TK_DER;
+        }
+    }
+}
+
 uint32_t expr(char *e, bool *success) {
     init_tokens();// 
 
@@ -205,6 +230,8 @@ uint32_t expr(char *e, bool *success) {
 
   /* TODO: Insert codes to evaluate the expression. */
   else {
+      negative();
+      dereference();
       int i;
       printf("nr_token: %d\n",nr_token);
       for (i=0;i<nr_token;i++){
