@@ -211,6 +211,7 @@ void negative(){
     for (i=0;i<nr_token;i++){
         if (tokens[i].type == TK_SUB && tokens[i-1].type < TK_NUM ){
             tokens[i].type=TK_NEG;
+            Log("position : %d  type : %d\n",i,tokens[i].type);
         }
     }
 }
