@@ -136,9 +136,6 @@ int dom_op(int p,int q){
     int i,j;
     int result=0,op=0;
     if(p>q)  assert(0);
-    if (tokens[p].type==TK_LPA  &&  tokens[q].type==TK_RPA){
-        return true;
-    }
     for(i=p;i<=q;i++){
         if(tokens[i].type==TK_LPA){
             j=0;
