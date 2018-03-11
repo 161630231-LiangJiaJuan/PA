@@ -184,6 +184,7 @@ int eval(int p,int q){
     else {
         int op =dom_op(p,q);
         int val1=eval(p,op-1);
+        Log("operator : %s\n",tokens[op].str);
         int val2=eval(op+1,q);
         switch(tokens[op].type){
             case TK_MU : return val1*val2;
