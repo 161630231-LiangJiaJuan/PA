@@ -148,7 +148,7 @@ int dom_op(int p,int q){
             op=i;
             continue;
         }
-        else if(tokens[i].type<=TK_DI ){
+        else if(tokens[i].type<=TK_DI && result <= TK_DI ){
             result=tokens[i].type;
             op=i;
             continue;
