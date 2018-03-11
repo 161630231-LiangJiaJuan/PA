@@ -143,9 +143,15 @@ int dom_op(int p,int q){
             continue;
         } //end if, to skip the not opretor
         
-        else if(tokens[i].type>=result){
+        else if ( tokens[i].type>=TK_PL || result==0 ){
             result=tokens[i].type;
             op=i;
+            continue;
+        }
+        else if(tokens[i].type<=TK_DI ){
+            result=tokens[i].type;
+            op=i;
+            continue;
         }
     }
     return op;
