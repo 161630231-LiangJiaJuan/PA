@@ -26,9 +26,9 @@ static struct rule {
   {"\\/",TK_DI},         // division
   {"\\+",TK_PL},         // plus
   {"\\-",TK_SUB},         // subtraction
-  {"[1-9][0-9]{0,3}", TK_NUM},         // subtraction
-  {"\\(", TK_LPA},         // subtraction
-  {"\\)", TK_RPA},         // subtraction
+  {"[1-9][0-9]{0,3}", TK_NUM},         //number 
+  {"\\(", TK_LPA},         // left parentheses
+  {"\\)", TK_RPA},         // right parentheses
   {"==", TK_EQ}         // equal
 };
 
@@ -180,8 +180,8 @@ int eval(int p,int q){
     }
     else {
         int op =dom_op(p,q);
-        int val1=eval(p,op-1);
         Log("operator : %s\n",tokens[op].str);
+        int val1=eval(p,op-1);
         int val2=eval(op+1,q);
         switch(tokens[op].type){
             case TK_MU : return val1*val2;
