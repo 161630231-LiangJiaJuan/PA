@@ -157,11 +157,13 @@ int dom_op(int p,int q){
         else if ( (tokens[i].type>=TK_PL && tokens[i].type <=TK_SUB ) || result==0 ){
             result=tokens[i].type;
             op=i;
+        Log("operator : %s\n",tokens[op].str);
             continue;
         }
         else if(tokens[i].type<=TK_DI && result <= TK_DI ){
             result=tokens[i].type;
             op=i;
+        Log("operator : %s\n",tokens[op].str);
             continue;
         }
     }
@@ -181,7 +183,6 @@ int eval(int p,int q){
     }
     else {
         int op =dom_op(p,q);
-        Log("operator : %s\n",tokens[op].str);
         int val1=eval(p,op-1);
         int val2=eval(op+1,q);
         switch(tokens[op].type){
