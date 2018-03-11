@@ -154,7 +154,7 @@ int dom_op(int p,int q){
             continue;
         } //end if, to skip the not opretor
         
-        else if ( (tokens[i].type>=TK_PL && tokens[i].type <=TK_SUB ) || result==0 ){
+        else if ( (tokens[i].type>=TK_PL && tokens[i].type <=TK_SUB )  ){
             result=tokens[i].type;
             op=i;
         Log("operator : %s\n",tokens[op].str);
