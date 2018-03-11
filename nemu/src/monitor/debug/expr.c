@@ -168,10 +168,14 @@ int dom_op(int p,int q){
 }
 
 int eval(int p,int q){
+    if (tokens[p].type==TK_NEG){
+        p++;
+    }
     if(p>q){
         Log("Bad expression\n");
         assert(0);
     }
+    
     else if(p==q){
         if (tokens[p-1].type==TK_NEG)
             return (0-atoi(tokens[p].str));
