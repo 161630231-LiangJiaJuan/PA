@@ -173,6 +173,8 @@ int eval(int p,int q){
         assert(0);
     }
     else if(p==q){
+        if (tokens[p-1].type==TK_NEG)
+            return (0-atoi(tokens[p].str));
         return atoi(tokens[p].str);
     }
    else if(check_parentheses(p,q)== true){
@@ -233,7 +235,7 @@ uint32_t expr(char *e, bool *success) {
 
   /* TODO: Insert codes to evaluate the expression. */
   else {
-     // negative();
+      negative();
      // dereference();
       int i;
       printf("nr_token: %d\n",nr_token);
