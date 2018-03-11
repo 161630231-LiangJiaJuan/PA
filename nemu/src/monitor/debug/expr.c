@@ -145,7 +145,6 @@ int dom_op(int p,int q){
         
         else if(tokens[i].type>=result){
             result=tokens[i].type;
-            Log("operator : %s\n",tokens[i].str);
             op=i;
         }
     }
@@ -165,6 +164,7 @@ int eval(int p,int q){
    // }
     else {
         int op =dom_op(p,q);
+        Log("operator : %s\n",tokens[op].str);
         int val1=eval(p,op-1);
         int val2=eval(op+1,q);
         switch(tokens[op].type){
