@@ -124,6 +124,7 @@ static int cmd_info(char *args){
                 for(j=0;j<8;j++){
                     printf("%s: 0x%x  %d\n",regsl[j],reg_l(j),reg_l(j));
                 }
+                printf("eip: 0x%x %d\n",cpu.eip,cpu.eip);
                 return 0;
             }
         }
