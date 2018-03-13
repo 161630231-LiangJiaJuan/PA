@@ -125,6 +125,9 @@ bool check_parentheses(int p,int q){
         if(tokens[i].type==TK_RPA){
             success--;
         }
+        if(success == 0 && i!=q){
+            return false;
+        }
     }
     }
     else return false;
