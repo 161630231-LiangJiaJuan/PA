@@ -127,6 +127,10 @@ static int cmd_info(char *args){
                 printf("eip: 0x%x %d\n",cpu.eip,cpu.eip);
                 return 0;
             }
+            default:{
+                printf("No argument given , use r or w\n");
+                return 0;
+            }
         }
     }
     return 0;
