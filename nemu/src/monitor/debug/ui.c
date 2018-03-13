@@ -122,7 +122,7 @@ static int cmd_info(char *args){
             case 'r':{
                 int j;
                 for(j=0;j<8;j++){
-                    printf("0x%x  %d\n",cpu.gpr[j]._32,cpu.gpr[j]._32);
+                    printf("%s: 0x%x  %d\n",regsl[j],reg_l(j),reg_l(j));
                 }
                 return 0;
             }
