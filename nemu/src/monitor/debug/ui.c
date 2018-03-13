@@ -86,11 +86,15 @@ void exec_wrapper(bool);
 static int cmd_si(char *args){
 	char *arg= strtok(NULL," " );
 	//int i=1;
-	if (arg ==NULL) {
+	if (arg ==NULL||atoi(arg)==0) {
     exec_wrapper(true);
     }
-    else if(atoi(arg)==0){
+    else if(atoi(arg)== -1){
         cpu_exec(-1);
+        return 0;
+    }
+    else if(atoi(arg)<-1){
+        printf("Unkonwn command %s",arg);
         return 0;
     }
 	else {
@@ -173,15 +177,15 @@ return 0;
 
 //static bool make_token(char *e);
 static int cmd_p(char *args){
-    char *arg=strtok(NULL," ");
-    if(arg==NULL){
+   // char *arg=strtok(NULL," ");
+    if(args==NULL){
 
         printf("No expression given\n");
         return 0;
     }
     else{
         bool succeed;
-        printf("%d\n",expr(arg,&succeed));
+        printf("%d\n",expr(args,&succeed));
         
     }
     return 0;
