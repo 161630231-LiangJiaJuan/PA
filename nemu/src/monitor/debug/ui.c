@@ -120,15 +120,10 @@ static int cmd_info(char *args){
         char key = *arg;
         switch(key){
             case 'r':{
-                printf("eax: 0x%x\n",cpu.eax);
-                printf("ecx: 0x%x\n",cpu.ecx);
-                printf("edx: 0x%x\n",cpu.edx);
-                printf("ebx: 0x%x\n",cpu.ebx);
-                printf("esp: 0x%x\n",cpu.esp);
-                printf("ebp: 0x%x\n",cpu.ebp);
-                printf("esi: 0x%x\n",cpu.esi);
-                printf("edi: 0x%x\n",cpu.edi);
-                printf("eip: 0x%x\n",cpu.eip);
+                int j;
+                for(j=0;j<8;j++){
+                    printf("0x%x  %d\n",cpu.gpr[j]._32,cpu.gpr[j]._32);
+                }
                 return 0;
             }
         }
