@@ -29,11 +29,9 @@ union{
    */
  struct {
  rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
-//  vaddr_t eip;
 };
 
 };
-// rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
 uint32_t eip;
 
 } CPU_state;
