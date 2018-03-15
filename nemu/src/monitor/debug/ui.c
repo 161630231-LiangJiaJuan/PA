@@ -85,9 +85,8 @@ void exec_wrapper(bool);
 
 static int cmd_si(char *args){
 	char *arg= strtok(NULL," " );
-	//int i=1;
 	if (arg ==NULL||atoi(arg)==0) {
-    exec_wrapper(true);
+    cpu_exec(1);
     }
     else if(atoi(arg)== -1){
         cpu_exec(-1);
