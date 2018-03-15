@@ -166,11 +166,11 @@ static int cmd_x(char *args){
         
         int i=0,j=0;
         for (i=0;i<N;i++){
-            adr[i]=paddr_read(*expr+i*4,len);
-            printf("%x   0x%0*x   ",*expr+i*4,len*2,adr[i]);  //four byte print
+            adr[i]=paddr_read(*expr+i*len,len);
+            printf("%x   0x%0*x   ",*expr+i*len,len*2,adr[i]);  //four byte print
             for(j=0;j<len;j++){
                 if (one == 0) break;
-                printf("0x%0*x ",one*2,paddr_read(*expr+i*4+j,one)); // one byte print
+                printf("0x%0*x ",one*2,paddr_read(*expr+i*len+j,one)); // one byte print
             }
             printf("\n");
         }
