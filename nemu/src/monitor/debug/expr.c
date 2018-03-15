@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-  TK_EQ=0,TK_MU,TK_DI,TK_PL,TK_SUB,TK_LPA,TK_RPA,TK_NUM,TK_NEG,TK_DER,TK_NOTYPE    
+  TK_EQ=0,TK_MU,TK_DI,TK_PL,TK_SUB,TK_LPA,TK_RPA,TK_NUM,TK_VAL,TK_NEG,TK_DER,TK_NOTYPE    
   /* TODO: Add more token types */
 
 };
@@ -27,9 +27,11 @@ static struct rule {
   {"\\+",TK_PL},         // plus
   {"\\-",TK_SUB},         // subtraction
   {"[1-9][0-9]{0,3}", TK_NUM},         //number 
+  {"^[a-zA-Z_][a-zA-Z0-9_]+$",TK_VAL},  //value
   {"\\(", TK_LPA},         // left parentheses
   {"\\)", TK_RPA},         // right parentheses
   {"==", TK_EQ}         // equal
+
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
