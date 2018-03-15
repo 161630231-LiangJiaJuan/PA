@@ -27,7 +27,7 @@ static struct rule {
   {"\\+",TK_PL},         // plus
   {"\\-",TK_SUB},         // subtraction
   {"[1-9][0-9]{0,3}", TK_NUM},         //number 
-  {"^[a-zA-Z_][a-zA-Z0-9_]+$",TK_VAL},  //value
+  {"[a-zA-Z0-9]+",TK_VAL},  //value
   {"\\(", TK_LPA},         // left parentheses
   {"\\)", TK_RPA},         // right parentheses
   {"==", TK_EQ}         // equal
