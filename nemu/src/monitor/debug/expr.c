@@ -99,6 +99,7 @@ static bool make_token(char *e) {
               sprintf(tokens[nr_token].str,"%d",dec);
                 
               nr_token++;
+              break;
           }
           default:{
                 tokens[nr_token].type=rules[i].token_type;
