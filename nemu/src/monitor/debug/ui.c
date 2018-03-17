@@ -189,7 +189,7 @@ static int cmd_p(char *args){
     }
     else{
         bool succeed;
-        printf("%d\n",expr(args,&succeed));
+        printf("%08x   %d\n",expr(args,&succeed),expr(args,&succeed));
         
     }
     return 0;
