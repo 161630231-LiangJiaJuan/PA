@@ -278,8 +278,8 @@ int eval(int p,int q){
             case TK_SUB : return val1-val2;
             case TK_EQ: return EQ(val1,val2);
             case TK_NOEQ: return NOEQ(val1,val2);
-            case TK_AND: return val1*val2;
-            case TK_OR: return val1||val2;
+            case TK_AND: return AND(val1,val2);
+            case TK_OR: return OR(val1,val2);
             default : assert(0);
         }
     }
