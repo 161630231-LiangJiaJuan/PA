@@ -97,6 +97,7 @@ static bool make_token(char *e) {
               tokens[nr_token].type =  TK_NUM;
               int dec=hex_str(substr_start);
               sprintf(tokens[nr_token].str,"%d",dec);
+                
               nr_token++;
           }
           default:{
