@@ -30,8 +30,8 @@ WP* new_wp(){
         last=last->next;
     }
     if(cur!=NULL){
-        return cur;
         last->next=NULL;
+        return cur;
     }
     else{
         Log("Not enough watchpoint \n");
