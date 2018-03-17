@@ -9,7 +9,7 @@
 #include <stdlib.h>
 int hex_str(char *hex);
 enum {
-  TK_EQ=0,TK_NOEQ,TK_AND,TK_OR,TK_MU,TK_DI,TK_PL,TK_SUB,TK_LPA,TK_RPA,TK_NUM,TK_HEX_NUM,TK_VAL,TK_REG,TK_NEG,TK_DER,TK_NOTYPE    
+  TK_AND=0,TK_OR,TK_EQ,TK_NOEQ,TK_PL,TK_SUB,TK_MU,TK_DI,TK_LPA,TK_RPA,TK_NUM,TK_HEX_NUM,TK_VAL,TK_REG,TK_NEG,TK_DER,TK_NOTYPE    
   /* TODO: Add more token types */
 
 };
@@ -201,7 +201,7 @@ bool check_parentheses(int p,int q){
 
 int dom_op(int p,int q){
     int i,j;
-    int op=0;
+    int op=0,result=-1;
     if(p>q)  assert(0);
     for(i=p;i<=q;i++){
         if(tokens[i].type==TK_LPA){
@@ -216,23 +216,27 @@ int dom_op(int p,int q){
         }//end if ,to skip the parentheses
 
         
-        else if(tokens[i].type<TK_EQ||tokens[i].type>TK_SUB){
+        else if(tokens[i].type<TK_AND||tokens[i].type>TK_DI){
             continue;
         } //end if, to skip the not opretor
-        else if(tokens[i].type >=TK_AND && tokens[i].type <=TK_OR ){
+        else if( tokens[i].type <=TK_OR ){
+            result=tokens[i].type ;
             op=i;
             continue;
         }
-        else if(tokens[i].type>=TK_EQ && tokens[i].type<=TK_NOEQ ){
+        else if( (result>=TK_EQ && tokens[i].type<=TK_NOEQ)|| result==-1 ){
+            result=tokens[i].type ;
             op=i;
             continue;
         }
-        else if ( (tokens[i].type>=TK_PL && tokens[i].type <=TK_SUB )  ){
+        else if ( (result>=TK_PL && tokens[i].type <=TK_SUB ) ||result == -1 ){
+            result=tokens[i].type ;
             op=i;
 //        Log("operator : %s\n",tokens[op].str);
             continue;
         }
-        else if((tokens[i].type<=TK_DI && tokens[i].type>=TK_MU)  ){
+        else if((tokens[i].type<=TK_DI && result>=TK_MU) || result == -1 ){
+            result=tokens[i].type ;
             op=i;
 //        Log("operator : %s\n",tokens[op].str);
             continue;
