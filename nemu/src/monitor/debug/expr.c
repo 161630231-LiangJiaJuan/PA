@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-  TK_EQ=0,TK_MU,TK_DI,TK_PL,TK_SUB,TK_LPA,TK_RPA,TK_NUM,TK_VAL,TK_REG,TK_NEG,TK_DER,TK_NOTYPE    
+  TK_EQ=0,TK_MU,TK_DI,TK_PL,TK_SUB,TK_LPA,TK_RPA,TK_NUM,TK_HEX_NUM,TK_VAL,TK_REG,TK_NEG,TK_DER,TK_NOTYPE    
   /* TODO: Add more token types */
 
 };
@@ -26,6 +26,7 @@ static struct rule {
   {"\\/",TK_DI},         // division
   {"\\+",TK_PL},         // plus
   {"\\-",TK_SUB},         // subtraction
+  {"[0][x][1-9][0-9]+", TK_HEX_NUM},         //HEX number 
   {"[1-9][0-9]+", TK_NUM},         //number 
   {"[a-zA-Z0-9]+",TK_VAL},    //value
   {"[$][e][a-zA-Z]+",TK_REG},    //register
@@ -114,10 +115,16 @@ static bool make_token(char *e) {
   return true;
 }
 
+int hex_tran(char *hex ){
+    int dec=0;
+    sscanf(hex+2,"%x",&dec);
+    return dec;
+}
 int der_reg(char *name){
     int i;
     for (i=0;i<7;i++){
         if (strcmp(name+1,regsl[i])==0){
+            Log("compare register %s\n",regsl[i]);
             return reg_l(i);
         }
     }
