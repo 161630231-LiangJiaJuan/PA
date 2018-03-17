@@ -36,8 +36,8 @@ static struct rule {
   {"\\)", TK_RPA},         // right parentheses
   {"==", TK_EQ},         // equal
   {"!=", TK_NOEQ},         //no  equal
-  {"\\&&", TK_AND},         //&&
-  {"\\||", TK_OR}         //||
+  {"\\&+", TK_AND},         //&&
+  {"\\|+", TK_OR}         //||
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
