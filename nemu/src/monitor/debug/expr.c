@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-  TK_EQ=0,TK_MU,TK_DI,TK_PL,TK_SUB,TK_LPA,TK_RPA,TK_NUM,TK_VAL,TK_NEG,TK_DER,TK_NOTYPE    
+  TK_EQ=0,TK_MU,TK_DI,TK_PL,TK_SUB,TK_LPA,TK_RPA,TK_NUM,TK_VAL,TK_REG,TK_NEG,TK_DER,TK_NOTYPE    
   /* TODO: Add more token types */
 
 };
@@ -27,7 +27,8 @@ static struct rule {
   {"\\+",TK_PL},         // plus
   {"\\-",TK_SUB},         // subtraction
   {"[1-9][0-9]{0,3}", TK_NUM},         //number 
-  {"[a-zA-Z0-9]+",TK_VAL},  //value
+  {"[a-zA-Z0-9]+",TK_VAL},    //value
+  {"$e[a-zA-Z]+",TK_REG},    //register
   {"\\(", TK_LPA},         // left parentheses
   {"\\)", TK_RPA},         // right parentheses
   {"==", TK_EQ}         // equal
@@ -113,6 +114,16 @@ static bool make_token(char *e) {
   return true;
 }
 
+int der_reg(char *name){
+    int i;
+    for (i=0;i<7;i++){
+        if (strcmp(name+1,regsl[i])==0){
+            return reg_l(i);
+        }
+    }
+    return 0;
+}
+
 bool check_parentheses(int p,int q){
     if (p>q||q>nr_token){
         Log("Bad expression in check_parentheses\n");
@@ -178,7 +189,7 @@ int dom_op(int p,int q){
 }
 
 int eval(int p,int q){
-    if (tokens[p].type==TK_NEG){
+    if (tokens[p].type>=TK_NEG){
         p++;
     }
     if(p>q){
@@ -188,7 +199,13 @@ int eval(int p,int q){
     
     else if(p==q){
         if (tokens[p-1].type==TK_NEG)
-            return (0-atoi(tokens[p].str));
+            return (0-atoi(tokens[p].str));  //return negative
+        if (tokens[p-1].type == TK_DER ){
+            if (tokens[p].type!=TK_NUM){   
+                return vaddr_read(der_reg(tokens[p].str),4); // return dereference register and value
+            }
+            return vaddr_read(atoi(tokens[p].str),4); // return dereference  number
+        }
         return atoi(tokens[p].str);
     }
    else if(check_parentheses(p,q)== true){
@@ -251,7 +268,7 @@ uint32_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
   else {
       negative();
-     // dereference();
+      dereference();
       int i;
       printf("nr_token: %d\n",nr_token);
       for (i=0;i<nr_token;i++){
