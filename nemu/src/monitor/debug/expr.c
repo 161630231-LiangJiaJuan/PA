@@ -9,7 +9,7 @@
 #include <stdlib.h>
 int hex_str(char *hex);
 enum {
-  TK_EQ=0,TK_MU,TK_DI,TK_PL,TK_SUB,TK_LPA,TK_RPA,TK_NUM,TK_HEX_NUM,TK_VAL,TK_REG,TK_NEG,TK_DER,TK_NOTYPE    
+  TK_EQ=0,TK_NOEQ,TK_MU,TK_DI,TK_PL,TK_SUB,TK_LPA,TK_RPA,TK_NUM,TK_HEX_NUM,TK_VAL,TK_REG,TK_NEG,TK_DER,TK_AND,TK_OR,TK_NOTYPE    
   /* TODO: Add more token types */
 
 };
@@ -28,13 +28,16 @@ static struct rule {
   {"\\/",TK_DI},         // division
   {"\\+",TK_PL},         // plus
   {"\\-",TK_SUB},         // subtraction
-  {"[0][x][1-9][0-9]+", TK_HEX_NUM},         //HEX number 
-  {"[1-9][0-9]+", TK_NUM},         //number 
+  {"[0][x][1-9][0-9]*", TK_HEX_NUM},         //HEX number 
+  {"[1-9][0-9]*", TK_NUM},         //number 
   {"[a-zA-Z0-9]+",TK_VAL},    //value
   {"[$][e][a-zA-Z]+",TK_REG},    //register
   {"\\(", TK_LPA},         // left parentheses
   {"\\)", TK_RPA},         // right parentheses
-  {"==", TK_EQ}         // equal
+  {"==", TK_EQ},         // equal
+  {"!=", TK_NOEQ},         //no  equal
+  {"&", TK_AND},         //&
+  {"|", TK_OR}         //|
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
