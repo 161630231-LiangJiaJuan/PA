@@ -9,7 +9,7 @@
 #include <stdlib.h>
 int hex_str(char *hex);
 enum {
-  TK_EQ=0,TK_NOEQ,TK_MU,TK_DI,TK_PL,TK_SUB,TK_LPA,TK_RPA,TK_NUM,TK_HEX_NUM,TK_VAL,TK_REG,TK_NEG,TK_DER,TK_AND,TK_OR,TK_NOTYPE    
+  TK_EQ=0,TK_NOEQ,TK_AND,TK_OR,TK_MU,TK_DI,TK_PL,TK_SUB,TK_LPA,TK_RPA,TK_NUM,TK_HEX_NUM,TK_VAL,TK_REG,TK_NEG,TK_DER,TK_NOTYPE    
   /* TODO: Add more token types */
 
 };
@@ -36,8 +36,8 @@ static struct rule {
   {"\\)", TK_RPA},         // right parentheses
   {"==", TK_EQ},         // equal
   {"!=", TK_NOEQ},         //no  equal
-  {"&", TK_AND},         //&
-  {"|", TK_OR}         //|
+  {"&&", TK_AND},         //&&
+  {"||", TK_OR}         //||
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -205,7 +205,10 @@ int dom_op(int p,int q){
         else if(tokens[i].type<TK_EQ||tokens[i].type>TK_SUB){
             continue;
         } //end if, to skip the not opretor
-
+        else if(tokens[i].type >=TK_AND && tokens[i].type <=TK_OR ){
+            op=i;
+            continue;
+        }
         else if(tokens[i].type>=TK_EQ && tokens[i].type<=TK_NOEQ ){
             op=i;
             continue;
@@ -261,6 +264,8 @@ int eval(int p,int q){
             case TK_SUB : return val1-val2;
             case TK_EQ: return EQ(val1,val2);
             case TK_NOEQ: return NOEQ(val1,val2);
+            case TK_AND: return val1*val2;
+            case TK_OR: return val1||val2;
             default : assert(0);
         }
     }
