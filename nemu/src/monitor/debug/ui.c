@@ -95,7 +95,7 @@ static int cmd_si(char *args){
         return 0;
     }
     else if(atoi(arg)<-1){
-        printf("Unkonwn command %s",arg);
+        printf("Unkonwn command %s\n",arg);
         return 0;
     }
 	else {
