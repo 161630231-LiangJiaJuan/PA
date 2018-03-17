@@ -1,6 +1,5 @@
 #include "monitor/watchpoint.h"
 #include "monitor/expr.h"
-
 #define NR_WP 32
 
 static WP wp_pool[NR_WP];
@@ -59,6 +58,8 @@ extern void set_wp(char *arg){
     WP *cur=last->next;
     strcpy(cur->expr,arg);
     cur->next=NULL;
+    bool succeed;
+    cur->old=expr(arg,&succeed);
 }
 
 extern void list_wp(){
@@ -67,4 +68,24 @@ extern void list_wp(){
         cur=cur->next;
         printf("WP No.%d  WP expr:%s\n",cur->NO,cur->expr);
     }
+}
+
+extern int cmp_val(){
+    if (head->next==NULL){
+        return 0;
+    }
+    else{
+        WP *cur=head;
+        while(cur->next!=NULL){
+            cur=cur->next;
+            bool succeed;
+            int result=expr(cur->expr,&succeed);
+            if (result!=cur->old){
+                return 1;
+                break;
+            }
+            cur->old = result;
+        }
+    }
+    return 0;
 }
