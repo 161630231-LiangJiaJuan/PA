@@ -5,7 +5,9 @@
  */
 #include <sys/types.h>
 #include <regex.h>
-
+#include <string.h>
+#include <stdlib.h>
+int hex_str(char *hex);
 enum {
   TK_EQ=0,TK_MU,TK_DI,TK_PL,TK_SUB,TK_LPA,TK_RPA,TK_NUM,TK_HEX_NUM,TK_VAL,TK_REG,TK_NEG,TK_DER,TK_NOTYPE    
   /* TODO: Add more token types */
@@ -33,7 +35,6 @@ static struct rule {
   {"\\(", TK_LPA},         // left parentheses
   {"\\)", TK_RPA},         // right parentheses
   {"==", TK_EQ}         // equal
-
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -92,6 +93,12 @@ static bool make_token(char *e) {
           case TK_NOTYPE:{
               continue;
           }
+          case TK_HEX_NUM:{
+              tokens[nr_token].type =  TK_NUM;
+              int dec=hex_str(substr_start);
+              sprintf(tokens[nr_token].str,"%d",dec);
+              nr_token++;
+          }
           default:{
                 tokens[nr_token].type=rules[i].token_type;
                 int j;
@@ -111,11 +118,10 @@ static bool make_token(char *e) {
       return false;
     }
   }
-
   return true;
 }
 
-int hex_tran(char *hex ){
+int hex_str(char *hex ){
     int dec=0;
     sscanf(hex+2,"%x",&dec);
     return dec;
@@ -211,8 +217,10 @@ int eval(int p,int q){
             if (tokens[p].type!=TK_NUM){   
                 return vaddr_read(der_reg(tokens[p].str),4); // return dereference register and value
             }
-            return vaddr_read(atoi(tokens[p].str),4); // return dereference  number
+            else 
+                return vaddr_read(atoi(tokens[p].str),4); // return dereference  number
         }
+
         return atoi(tokens[p].str);
     }
    else if(check_parentheses(p,q)== true){
