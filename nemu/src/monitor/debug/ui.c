@@ -41,6 +41,7 @@ static int cmd_si(char *args);
 static int cmd_info(char *args);
 static int cmd_x(char *args);
 static int cmd_p(char *args);
+static int cmd_w(char *args);
 
 static struct {
   char *name;
@@ -53,7 +54,8 @@ static struct {
   { "si","Continue the program with N commands,si N",cmd_si},
   {"info","Print the program status，r:register,w:watchpoint",cmd_info} , 
   {"x","Scan the memory,x N address length(default as 4)",cmd_x },
-  {"p","evaluate the expression,p expr",cmd_p}
+  {"p","evaluate the expression,p expr",cmd_p},
+  {"w","About watchpoint,address to disas, expression to set",cmd_w}
 /* TODO: Add more commands */
 };
 
@@ -126,6 +128,10 @@ static int cmd_info(char *args){
                 printf("eip: 0x%x %d\n",cpu.eip,cpu.eip);
                 return 0;
             }
+            case 'w':{
+                list_wp();
+                return 0;
+            }
             default:{
                 printf("No argument given , use r or w\n");
                 return 0;
@@ -193,6 +199,19 @@ static int cmd_p(char *args){
         
     }
     return 0;
+}
+
+static int cmd_w(char *args){
+
+    if (args==NULL){
+        printf("No expression given\n");
+        return 0;
+
+    }
+    else{
+        set_wp(args);
+        return 0;
+    }
 }
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
