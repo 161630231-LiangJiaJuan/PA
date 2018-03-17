@@ -250,7 +250,7 @@ void negative(){
 void dereference(){
     int i;
     for (i=0;i<nr_token;i++){
-        if (tokens[i].type == TK_DER && tokens[i-1].type < TK_NUM ){
+        if (tokens[i].type == TK_MU  && tokens[i-1].type < TK_NUM ){
             tokens[i].type=TK_DER;
             Log("position : %d  type : %d\n",i,tokens[i].type);
         }
