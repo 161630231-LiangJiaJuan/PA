@@ -26,7 +26,7 @@ static struct rule {
   {"\\/",TK_DI},         // division
   {"\\+",TK_PL},         // plus
   {"\\-",TK_SUB},         // subtraction
-  {"[1-9][0-9]{0,3}", TK_NUM},         //number 
+  {"[1-9][0-9]+", TK_NUM},         //number 
   {"[a-zA-Z0-9]+",TK_VAL},    //value
   {"[$][e][a-zA-Z]+",TK_REG},    //register
   {"\\(", TK_LPA},         // left parentheses
