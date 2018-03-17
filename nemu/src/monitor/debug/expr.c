@@ -155,7 +155,21 @@ int NOEQ(int val1,int val2){
     else
         return 0;
 }
+int AND(int val1,int val2){
+    if(val1>0&&val2>0){
+        return 1;
+    }
+    else
+        return 0;
+}
 
+int OR(int val1,int val2){
+    if(val1>0 || val2 > 0){
+        return 1;
+    }
+    else
+        return 0;
+}
 bool check_parentheses(int p,int q){
     if (p>q||q>nr_token){
         Log("Bad expression in check_parentheses\n");
