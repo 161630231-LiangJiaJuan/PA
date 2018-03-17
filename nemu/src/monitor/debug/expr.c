@@ -142,6 +142,20 @@ int der_reg(char *name){
     return 0;
 }
 
+int EQ(int val1,int val2 ){
+    if (val1==val2){
+        return 1;
+    }
+    else
+        return 0;
+}
+int NOEQ(int val1,int val2){
+    if(val1!=val2)
+        return 1;
+    else
+        return 0;
+}
+
 bool check_parentheses(int p,int q){
     if (p>q||q>nr_token){
         Log("Bad expression in check_parentheses\n");
@@ -173,7 +187,7 @@ bool check_parentheses(int p,int q){
 
 int dom_op(int p,int q){
     int i,j;
-    int result=0,op=0;
+    int op=0;
     if(p>q)  assert(0);
     for(i=p;i<=q;i++){
         if(tokens[i].type==TK_LPA){
@@ -186,18 +200,22 @@ int dom_op(int p,int q){
             }
             continue;
         }//end if ,to skip the parentheses
-        else if(tokens[i].type<TK_MU||tokens[i].type>TK_SUB){
+
+        
+        else if(tokens[i].type<TK_EQ||tokens[i].type>TK_SUB){
             continue;
         } //end if, to skip the not opretor
-        
+
+        else if(tokens[i].type>=TK_EQ && tokens[i].type<=TK_NOEQ ){
+            op=i;
+            continue;
+        }
         else if ( (tokens[i].type>=TK_PL && tokens[i].type <=TK_SUB )  ){
-            result=tokens[i].type;
             op=i;
 //        Log("operator : %s\n",tokens[op].str);
             continue;
         }
-        else if(tokens[i].type<=TK_DI && result <= TK_DI ){
-            result=tokens[i].type;
+        else if((tokens[i].type<=TK_DI && tokens[i].type>=TK_MU)  ){
             op=i;
 //        Log("operator : %s\n",tokens[op].str);
             continue;
@@ -241,6 +259,8 @@ int eval(int p,int q){
             case TK_DI : return val1/val2;
             case TK_PL :return val1+val2;
             case TK_SUB : return val1-val2;
+            case TK_EQ: return EQ(val1,val2);
+            case TK_NOEQ: return NOEQ(val1,val2);
             default : assert(0);
         }
     }
