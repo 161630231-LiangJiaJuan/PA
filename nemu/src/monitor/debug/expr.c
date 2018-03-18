@@ -7,6 +7,7 @@
 #include <regex.h>
 #include <string.h>
 #include <stdlib.h>
+CPU_state cpu;
 int hex_str(char *hex);
 enum {
   TK_AND=0,TK_OR,TK_EQ,TK_NOEQ,TK_PL,TK_SUB,TK_MU,TK_DI,TK_LPA,TK_RPA,TK_NUM,TK_HEX_NUM,TK_VAL,TK_REG,TK_NEG,TK_DER,TK_NOTYPE    
@@ -138,6 +139,9 @@ int reg_val(char *name){
             Log("compare register %s\n",regsl[i]);
             return reg_l(i);
         }
+    }
+    if (strcmp(name+1,"eip")==0){
+        return cpu.eip;
     }
     return 0;
 }
