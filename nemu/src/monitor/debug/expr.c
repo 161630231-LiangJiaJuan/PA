@@ -264,7 +264,7 @@ int eval(int p,int q){
             else 
                 return vaddr_read(atoi(tokens[p].str),4); // return dereference  number
         }
-        if (tokens[p-1].type == TK_REG){
+        if (tokens[p].type == TK_REG){
             return reg_val(tokens[p].str);
         }
         return atoi(tokens[p].str);
