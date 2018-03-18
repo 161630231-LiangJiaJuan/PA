@@ -84,8 +84,8 @@ static bool make_token(char *e) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 
-        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            i, rules[i].regex, position, substr_len, substr_len, substr_start);
+       // Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+       //     i, rules[i].regex, position, substr_len, substr_len, substr_start);
         position += substr_len;
 
         /* TODO: Now a new token is recognized with rules[i]. Add codes
@@ -136,7 +136,7 @@ int reg_val(char *name){
     int i;
     for (i=0;i<7;i++){
         if (strcmp(name+1,regsl[i])==0){
-            Log("compare register %s\n",regsl[i]);
+         //   Log("compare register %s\n",regsl[i]);
             return reg_l(i);
         }
     }
@@ -196,7 +196,7 @@ bool check_parentheses(int p,int q){
     else return false;
 
     if(success==0 && tokens[q].type == TK_RPA){
-        Log("True match parentheses in %d\n",q);
+      //  Log("True match parentheses in %d\n",q);
         return true;
     }
     else
@@ -278,7 +278,7 @@ int eval(int p,int q){
     }
     else {
         int op =dom_op(p,q);
-        Log("operator : %s\n",tokens[op].str);
+       // Log("operator : %s\n",tokens[op].str);
         int val1=eval(p,op-1);
         int val2=eval(op+1,q);
         switch(tokens[op].type){
@@ -311,7 +311,7 @@ void negative(){
     for (i=0;i<nr_token;i++){
         if (tokens[i].type == TK_SUB && tokens[i-1].type < TK_NUM ){
             tokens[i].type=TK_NEG;
-            Log("position : %d  type : %d\n",i,tokens[i].type);
+          //  Log("position : %d  type : %d\n",i,tokens[i].type);
         }
     }
 }
@@ -321,7 +321,7 @@ void dereference(){
     for (i=0;i<nr_token;i++){
         if (tokens[i].type == TK_MU  && tokens[i-1].type < TK_NUM ){
             tokens[i].type=TK_DER;
-            Log("position : %d  type : %d\n",i,tokens[i].type);
+           // Log("position : %d  type : %d\n",i,tokens[i].type);
         }
     }
 }
@@ -339,12 +339,12 @@ uint32_t expr(char *e, bool *success) {
   else {
       negative();
       dereference();
-      int i;
-      printf("nr_token: %d\n",nr_token);
-      for (i=0;i<nr_token;i++){
-          printf("%s",tokens[i].str);
-      }
-      printf("=");
+//      int i;
+//      printf("nr_token: %d\n",nr_token);
+//      for (i=0;i<nr_token;i++){
+//          printf("%s",tokens[i].str);
+//      }
+//      printf("=");
       return eval(0,nr_token-1);
   }
 
