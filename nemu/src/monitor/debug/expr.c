@@ -10,7 +10,7 @@
 CPU_state cpu;
 int hex_str(char *hex);
 enum {
-  TK_AND=0,TK_OR,TK_EQ,TK_NOEQ,TK_PL,TK_SUB,TK_MU,TK_DI,TK_LPA,TK_RPA,TK_NUM,TK_HEX_NUM,TK_VAL,TK_REG,TK_NEG,TK_DER,TK_FEI,TK_NOTYPE    
+  TK_AND=0,TK_OR,TK_EQ,TK_NOEQ,TK_PL,TK_SUB,TK_MU,TK_DI,TK_NEG,TK_DER,TK_FEI,TK_LPA,TK_RPA,TK_NUM,TK_HEX_NUM,TK_VAL,TK_REG,TK_NOTYPE    
   /* TODO: Add more token types */
 
 };
@@ -231,7 +231,7 @@ int dom_op(int p,int q){
         }//end if ,to skip the parentheses
 
         
-        else if(tokens[i].type<TK_AND||tokens[i].type>TK_DI){
+        else if(tokens[i].type<TK_AND||tokens[i].type>=TK_LPA){
             continue;
         } //end if, to skip the not opretor
         else if( tokens[i].type <=TK_OR ){
@@ -256,12 +256,17 @@ int dom_op(int p,int q){
 //        Log("operator : %s\n",tokens[op].str);
             continue;
         }
+        else if((tokens[i].type>=TK_NEG)|| result == -1){
+            result=tokens[i].type;
+            op=i;
+            continue;
+        }
     }
     return op;
 }
 
 int eval(int p,int q){
-    if (tokens[p].type>=TK_NEG){
+    if (tokens[p].type==TK_NEG){
         p++;
     }
     if(p>q){
