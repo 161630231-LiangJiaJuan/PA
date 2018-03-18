@@ -37,7 +37,7 @@ static struct rule {
   {"\\)", TK_RPA},         // right parentheses
   {"==", TK_EQ},         // equal
   {"!=", TK_NOEQ},         //no  equal
-  {"\\!", TK_FEI},         //non operator
+  {"!", TK_FEI},         //non operator
   {"\\&+", TK_AND},         //&&
   {"\\|+", TK_OR}         //||
 };
