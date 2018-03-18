@@ -146,6 +146,10 @@ int reg_val(char *name){
     return 0;
 }
 
+int der_val(int val){
+    return vaddr_read(val,4);
+}
+
 int EQ(int val1,int val2 ){
     if (val1==val2){
         return 1;
@@ -261,13 +265,6 @@ int eval(int p,int q){
     else if(p==q){
         if (tokens[p-1].type==TK_NEG)
             return (0-atoi(tokens[p].str));  //return negative
-        if (tokens[p-1].type == TK_DER ){
-            if (tokens[p].type!=TK_NUM){   
-                return vaddr_read(reg_val(tokens[p].str),4); // return dereference register and value
-            }
-            else 
-                return vaddr_read(atoi(tokens[p].str),4); // return dereference  number
-        }
         if (tokens[p].type == TK_REG){
             return reg_val(tokens[p].str);
         }
@@ -279,6 +276,14 @@ int eval(int p,int q){
     else {
         int op =dom_op(p,q);
        // Log("operator : %s\n",tokens[op].str);
+       if(tokens[op].type >= TK_NEG ){     //single eye compute
+           int val3=eval(op+1,q);
+           switch(tokens[op].type){
+            case TK_DER: return der_val(val3);
+            default : assert(0);
+            
+           }
+       }
         int val1=eval(p,op-1);
         int val2=eval(op+1,q);
         switch(tokens[op].type){
@@ -309,7 +314,7 @@ void init_tokens(){
 void negative(){
     int i;
     for (i=0;i<nr_token;i++){
-        if (tokens[i].type == TK_SUB && tokens[i-1].type < TK_NUM ){
+        if (tokens[i].type == TK_SUB && (tokens[i-1].type < TK_NUM || i==0) ){
             tokens[i].type=TK_NEG;
           //  Log("position : %d  type : %d\n",i,tokens[i].type);
         }
@@ -319,7 +324,7 @@ void negative(){
 void dereference(){
     int i;
     for (i=0;i<nr_token;i++){
-        if (tokens[i].type == TK_MU  && tokens[i-1].type < TK_NUM ){
+        if (tokens[i].type == TK_MU  && (tokens[i-1].type < TK_NUM|| i==0) ){
             tokens[i].type=TK_DER;
            // Log("position : %d  type : %d\n",i,tokens[i].type);
         }
