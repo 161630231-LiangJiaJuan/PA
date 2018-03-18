@@ -10,7 +10,7 @@
 CPU_state cpu;
 int hex_str(char *hex);
 enum {
-  TK_AND=0,TK_OR,TK_EQ,TK_NOEQ,TK_PL,TK_SUB,TK_MU,TK_DI,TK_LPA,TK_RPA,TK_NUM,TK_HEX_NUM,TK_VAL,TK_REG,TK_NEG,TK_DER,TK_NOTYPE    
+  TK_AND=0,TK_OR,TK_EQ,TK_NOEQ,TK_PL,TK_SUB,TK_MU,TK_DI,TK_LPA,TK_RPA,TK_NUM,TK_HEX_NUM,TK_VAL,TK_REG,TK_NEG,TK_DER,TK_FEI,TK_NOTYPE    
   /* TODO: Add more token types */
 
 };
@@ -37,6 +37,7 @@ static struct rule {
   {"\\)", TK_RPA},         // right parentheses
   {"==", TK_EQ},         // equal
   {"!=", TK_NOEQ},         //no  equal
+  {"\\!", TK_FEI},         //non operator
   {"\\&+", TK_AND},         //&&
   {"\\|+", TK_OR}         //||
 };
@@ -148,6 +149,13 @@ int reg_val(char *name){
 
 int der_val(int val){
     return vaddr_read(val,4);
+}
+
+int fei_val(int val){
+    if(val>0){
+        return 0;
+    }
+    else return 1;
 }
 
 int EQ(int val1,int val2 ){
@@ -280,6 +288,7 @@ int eval(int p,int q){
            int val3=eval(op+1,q);
            switch(tokens[op].type){
             case TK_DER: return der_val(val3);
+            case TK_FEI: return fei_val(val3);
             default : assert(0);
             
            }
