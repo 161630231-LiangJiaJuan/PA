@@ -42,7 +42,7 @@ static int cmd_info(char *args);
 static int cmd_x(char *args);
 static int cmd_p(char *args);
 static int cmd_w(char *args);
-
+static int cmd_d(char *args);
 static struct {
   char *name;
   char *description;
@@ -55,7 +55,8 @@ static struct {
   {"info","Print the program status，r:register,w:watchpoint",cmd_info} , 
   {"x","Scan the memory,x N address length(default as 4)",cmd_x },
   {"p","evaluate the expression,p expr",cmd_p},
-  {"w","About watchpoint,address to disas, expression to set",cmd_w}
+  {"w","About watchpoint,address to disas, expression to set",cmd_w},
+  {"d","Delete a watchpoint by WP.NO",cmd_d}
 /* TODO: Add more commands */
 };
 
@@ -214,6 +215,18 @@ static int cmd_w(char *args){
         return 0;
     }
 }
+
+static int cmd_d(char *args){
+    if (args==NULL|| atoi(args)>31){
+        printf("No argument given,please input a number less than 32");
+        return 0;
+    }
+    else{
+        del_wp(atoi(args));
+        return 0;
+    }
+}
+
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
     cmd_c(NULL);

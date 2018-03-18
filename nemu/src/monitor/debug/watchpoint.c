@@ -48,10 +48,10 @@ void free_wp(WP *wp){
     wp->next=NULL;
 }
 
-extern void del_wp(int num){
+ void del_wp(int num){
     WP *cur=head->next,*last=head;
     if(cur==NULL){
-        Log("No watchpoint using\n");
+        printf("No watchpoint using\n");
         return;
     }
     else{
@@ -59,17 +59,18 @@ extern void del_wp(int num){
             if (cur->NO==num){
                 last->next=cur->next;
                 free_wp(cur);
-                Log("Delete NO.%d\n",num);
+                printf("Delete NO.%d\n",num);
                 return;
             }
             cur=cur->next;
             last=last->next;
         }
     }
+    printf("No this watchpoint\n");
     return ;
 }
 
-extern void set_wp(char *arg){
+ void set_wp(char *arg){
     
    WP * last = head;
     while(last->next!=NULL){
@@ -81,14 +82,17 @@ extern void set_wp(char *arg){
     cur->next=NULL;
     bool succeed;
     cur->old=expr(arg,&succeed);
+    printf("Set watchpoint No.%d\n",cur->NO);
+    return;
 }
 
 extern void list_wp(){
     WP *cur =head;
     while(cur->next!=NULL){
         cur=cur->next;
-        printf("WP No.%d  WP expr:%s  old_val:%d\n ",cur->NO,cur->expr,cur->old);
+        printf("WP No.%d  WP expr:%s  old_val:0x%08x \n ",cur->NO,cur->expr,cur->old);
     }
+    return;
 }
 
 extern int cmp_val(){
@@ -102,7 +106,7 @@ extern int cmp_val(){
             bool succeed;
             int result=expr(cur->expr,&succeed);
             if (result!=cur->old){
-                Log("Touch watchpoint No.%d expr:%s old:%d new:%d \n",cur->NO,cur->expr,cur->old,result);
+                Log("Touch watchpoint No.%d expr:%s old:0x%08x new:0x%08x \n",cur->NO,cur->expr,cur->old,result);
                 return 1;
                 break;
             }

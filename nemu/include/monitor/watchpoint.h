@@ -13,6 +13,7 @@ typedef struct watchpoint {
 
 } WP;
 
-extern void set_wp(char *arg);
+ void set_wp(char *arg);
+ void del_wp(int num);
 extern void list_wp();
 #endif
