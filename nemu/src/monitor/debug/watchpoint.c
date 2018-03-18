@@ -96,6 +96,7 @@ extern void list_wp(){
 }
 
 extern int cmp_val(){
+    bool flag=false;
     if (head->next==NULL){
         return 0;
     }
@@ -107,11 +108,13 @@ extern int cmp_val(){
             int result=expr(cur->expr,&succeed);
             if (result!=cur->old){
                 Log("Touch watchpoint No.%d expr:%s old:0x%08x new:0x%08x \n",cur->NO,cur->expr,cur->old,result);
-                return 1;
-                break;
+                flag=true;
             }
             cur->old = result;
         }
     }
-    return 0;
+    if (flag==true)
+        return 1;
+    else    
+        return 0;
 }
