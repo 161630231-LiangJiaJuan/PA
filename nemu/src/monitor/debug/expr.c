@@ -134,7 +134,7 @@ int hex_str(char *hex ){
 int reg_val(char *name){
     int i;
     for (i=0;i<7;i++){
-        if (strcmp(name+1,regsl[i])==0){
+        if (strcmp(name+1,"eax")==0){
             Log("compare register %s\n",regsl[i]);
             return reg_l(i);
         }
