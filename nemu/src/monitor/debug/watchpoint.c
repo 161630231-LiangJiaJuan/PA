@@ -48,6 +48,27 @@ void free_wp(WP *wp){
     wp->next=NULL;
 }
 
+extern void del_wp(int num){
+    WP *cur=head->next,*last=head;
+    if(cur==NULL){
+        Log("No watchpoint using\n");
+        return;
+    }
+    else{
+        while(cur!=NULL){
+            if (cur->NO==num){
+                last->next=cur->next;
+                free_wp(cur);
+                Log("Delete NO.%d\n",num);
+                return;
+            }
+            cur=cur->next;
+            last=last->next;
+        }
+    }
+    return ;
+}
+
 extern void set_wp(char *arg){
     
    WP * last = head;
@@ -66,7 +87,7 @@ extern void list_wp(){
     WP *cur =head;
     while(cur->next!=NULL){
         cur=cur->next;
-        printf("WP No.%d  WP expr:%s\n",cur->NO,cur->expr);
+        printf("WP No.%d  WP expr:%s  old_val:%d\n ",cur->NO,cur->expr,cur->old);
     }
 }
 
@@ -81,6 +102,7 @@ extern int cmp_val(){
             bool succeed;
             int result=expr(cur->expr,&succeed);
             if (result!=cur->old){
+                Log("Touch watchpoint No.%d expr:%s old:%d new:%d \n",cur->NO,cur->expr,cur->old,result);
                 return 1;
                 break;
             }
