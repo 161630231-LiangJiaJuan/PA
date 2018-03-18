@@ -131,7 +131,7 @@ int hex_str(char *hex ){
     sscanf(hex+2,"%x",&dec);
     return dec;
 }
-int der_reg(char *name){
+int reg_val(char *name){
     int i;
     for (i=0;i<7;i++){
         if (strcmp(name+1,regsl[i])==0){
@@ -259,12 +259,14 @@ int eval(int p,int q){
             return (0-atoi(tokens[p].str));  //return negative
         if (tokens[p-1].type == TK_DER ){
             if (tokens[p].type!=TK_NUM){   
-                return vaddr_read(der_reg(tokens[p].str),4); // return dereference register and value
+                return vaddr_read(reg_val(tokens[p].str),4); // return dereference register and value
             }
             else 
                 return vaddr_read(atoi(tokens[p].str),4); // return dereference  number
         }
-
+        if (tokens[p-1].type == TK_REG){
+            return reg_val(tokens[p].str);
+        }
         return atoi(tokens[p].str);
     }
    else if(check_parentheses(p,q)== true){
