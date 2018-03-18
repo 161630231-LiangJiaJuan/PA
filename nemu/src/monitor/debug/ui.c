@@ -195,7 +195,8 @@ static int cmd_p(char *args){
     }
     else{
         bool succeed;
-        printf("0x%08x   %d\n",expr(args,&succeed),expr(args,&succeed));
+        int result=expr(args,&succeed);
+        printf("0x%08x   %d\n",result,result);
         
     }
     return 0;
