@@ -29,7 +29,7 @@ static struct rule {
   {"\\/",TK_DI},         // division
   {"\\+",TK_PL},         // plus
   {"\\-",TK_SUB},         // subtraction
-  {"[0][x][1-9][0-9]*", TK_HEX_NUM},         //HEX number 
+  {"[0][x][1-9][a-fA-F0-9]*", TK_HEX_NUM},         //HEX number 
   {"[1-9][0-9]*", TK_NUM},         //number 
   {"[a-zA-Z0-9]+",TK_VAL},    //value
   {"[$][e][a-zA-Z]+",TK_REG},    //register
