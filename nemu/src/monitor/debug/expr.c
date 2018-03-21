@@ -333,7 +333,7 @@ void init_tokens(){
 void negative(){
     int i;
     for (i=0;i<nr_token;i++){
-        if (tokens[i].type == TK_SUB && (tokens[i-1].type < TK_NUM || i==0) ){
+        if (tokens[i].type == TK_SUB && (tokens[i-1].type < TK_LPA || i==0) ){
             tokens[i].type=TK_NEG;
           //  Log("position : %d  type : %d\n",i,tokens[i].type);
         }
@@ -343,7 +343,7 @@ void negative(){
 void dereference(){
     int i;
     for (i=0;i<nr_token;i++){
-        if (tokens[i].type == TK_MU  && (tokens[i-1].type < TK_NUM|| i==0) ){
+        if (tokens[i].type == TK_MU  && (tokens[i-1].type < TK_LPA || i==0) ){
             tokens[i].type=TK_DER;
            // Log("position : %d  type : %d\n",i,tokens[i].type);
         }
