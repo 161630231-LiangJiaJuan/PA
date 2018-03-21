@@ -207,7 +207,7 @@ bool check_parentheses(int p,int q){
     else return false;
 
     if(success==0 && tokens[q].type == TK_RPA){
-      //  Log("True match parentheses in %d\n",q);
+        Log("True match parentheses in %d\n",q);
         return true;
     }
     else
