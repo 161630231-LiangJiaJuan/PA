@@ -10,7 +10,7 @@
 CPU_state cpu;
 int hex_str(char *hex);
 enum {
-  TK_OR=0,TK_AND,TK_EQ,TK_NOEQ,TK_PL,TK_SUB,TK_MU,TK_DI,TK_NEG,TK_DER,TK_FEI,TK_LPA,TK_RPA,TK_NUM,TK_HEX_NUM,TK_VAL,TK_REG,TK_NOTYPE    
+  TK_AND=0,TK_OR,TK_EQ,TK_NOEQ,TK_PL,TK_SUB,TK_MU,TK_DI,TK_NEG,TK_DER,TK_FEI,TK_LPA,TK_RPA,TK_NUM,TK_HEX_NUM,TK_VAL,TK_REG,TK_NOTYPE    
   /* TODO: Add more token types */
 
 };
@@ -38,8 +38,8 @@ static struct rule {
   {"==", TK_EQ},         // equal
   {"!=", TK_NOEQ},         //no  equal
   {"!", TK_FEI},         //non operator
-  {"\\&\\&", TK_AND},         //&&
-  {"\\|\\|", TK_OR}         //||
+  {"\\&+", TK_AND},         //&&
+  {"\\|+", TK_OR}         //||
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -231,22 +231,14 @@ int dom_op(int p,int q){
         }//end if ,to skip the parentheses
 
         
-        else if(tokens[i].type<TK_OR||tokens[i].type>=TK_LPA){
+        else if(tokens[i].type<TK_AND||tokens[i].type>=TK_LPA){
             continue;
         } //end if, to skip the not opretor
-		
-		else if( tokens[i].type <=TK_OR ){
+        else if( tokens[i].type <=TK_OR ){
             result=tokens[i].type ;
             op=i;
             continue;
-        }  //end if, operator "||"
-		
-		else if ((result>=TK_AND && tokens[i].type<=TK_AND)|| result==-1){
-			result=tokens[i].type ;
-            op=i;
-            continue;
-        }  // end if, opertor
-        
+        }
         else if( (result>=TK_EQ && tokens[i].type<=TK_NOEQ)|| result==-1 ){
             result=tokens[i].type ;
             op=i;
@@ -264,7 +256,7 @@ int dom_op(int p,int q){
 //        Log("operator : %s\n",tokens[op].str);
             continue;
         }
-        else if((tokens[i].type<=TK_FEI && result >= TK_NEG )|| result == -1){
+        else if((tokens[i].type>=TK_NEG)|| result == -1){
             result=tokens[i].type;
             op=i;
             continue;
@@ -274,14 +266,17 @@ int dom_op(int p,int q){
 }
 
 int eval(int p,int q){
+    if (tokens[p].type==TK_NEG){
+        p++;
+    }
     if(p>q){
         Log("Bad expression\n");
         assert(0);
     }
     
     else if(p==q){
-    //    if (tokens[p-1].type==TK_NEG)
-      //      return (0-atoi(tokens[p].str));  //return negative
+        if (tokens[p-1].type==TK_NEG)
+            return (0-atoi(tokens[p].str));  //return negative
         if (tokens[p].type == TK_REG){
             return reg_val(tokens[p].str);
         }
@@ -298,7 +293,6 @@ int eval(int p,int q){
            switch(tokens[op].type){
             case TK_DER: return der_val(val3);
             case TK_FEI: return fei_val(val3);
-            case TK_NEG: return 0-val3;
             default : assert(0);
             
            }
