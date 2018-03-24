@@ -166,18 +166,19 @@ static int cmd_x(char *args){
         }
         int N=atoi(arg);
         int adr[N];
-        arg2=arg2+2;   //skip the ch "0x"
+        bool success;
+   //     int result=expr(arg2,&success);   //skip the ch "0x"
 
-        int *expr = (int *)malloc(sizeof(int));
-        sscanf(arg2,"%x",expr);//argument save
-        
+        int *result = (int *)malloc(sizeof(int));
+     //   sscanf(result,"%x",expr);//argument save
+        *result=expr(arg2,&success);
         int i=0,j=0;
         for (i=0;i<N;i++){
-            adr[i]=paddr_read(*expr+i*len,len);
-            printf("%x   0x%0*x   ",*expr+i*len,len*2,adr[i]);  //four byte print
+            adr[i]=paddr_read(*result+i*len,len);
+            printf("%x   0x%0*x   ",*result+i*len,len*2,adr[i]);  //four byte print
             for(j=0;j<len;j++){
                 if (one == 0) break;
-                printf("0x%0*x ",one*2,paddr_read(*expr+i*len+j,one)); // one byte print
+                printf("0x%0*x ",one*2,paddr_read(*result+i*len+j,one)); // one byte print
             }
             printf("\n");
         }
