@@ -175,7 +175,7 @@ static int cmd_x(char *args){
         int i=0,j=0;
         for (i=0;i<N;i++){
             adr[i]=paddr_read(*result+i*len,len);
-            printf("%x   0x%0*x   ",*result+i*len,len*2,adr[i]);  //four byte print
+            printf("0x%x   0x%0*x   ",*result+i*len,len*2,adr[i]);  //four byte print
             for(j=0;j<len;j++){
                 if (one == 0) break;
                 printf("0x%0*x ",one*2,paddr_read(*result+i*len+j,one)); // one byte print
