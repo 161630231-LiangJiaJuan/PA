@@ -10,7 +10,7 @@
 CPU_state cpu;
 int hex_str(char *hex);
 enum {
-  TK_OR=0,TK_AND,TK_EQ,TK_NOEQ,TK_PL,TK_SUB,TK_MU,TK_DI,TK_NEG,TK_DER,TK_FEI,TK_LPA,TK_RPA,TK_NUM,TK_HEX_NUM,TK_VAL,TK_REG,TK_NOTYPE    
+  TK_OR=0,TK_AND,TK_EQ,TK_NOEQ,TK_PL,TK_SUB,TK_MU,TK_REMAIN,TK_DI,TK_NEG,TK_DER,TK_FEI,TK_LPA,TK_RPA,TK_NUM,TK_HEX_NUM,TK_VAL,TK_REG,TK_NOTYPE    
   /* TODO: Add more token types */
 
 };
@@ -29,6 +29,7 @@ static struct rule {
   {"\\/",TK_DI},         // division
   {"\\+",TK_PL},         // plus
   {"\\-",TK_SUB},         // subtraction
+  {"\\%",TK_REMAIN},      //remainder
   {"[0][x][1-9][a-fA-F0-9]*", TK_HEX_NUM},         //HEX number 
   {"[1-9][0-9]*", TK_NUM},         //number 
   {"[a-zA-Z0-9]+",TK_VAL},    //value
@@ -306,6 +307,7 @@ int eval(int p,int q){
         switch(tokens[op].type){
             case TK_MU : return val1*val2;
             case TK_DI : return val1/val2;
+            case TK_REMAIN: return val1%val2;
             case TK_PL :return val1+val2;
             case TK_SUB : return val1-val2;
             case TK_EQ: return EQ(val1,val2);
@@ -331,7 +333,7 @@ void init_tokens(){
 void negative(){
     int i;
     for (i=0;i<nr_token;i++){
-        if (tokens[i].type == TK_SUB && (tokens[i-1].type < TK_LPA || i==0) ){
+        if (tokens[i].type == TK_SUB && (tokens[i-1].type <= TK_LPA || i==0) ){
             tokens[i].type=TK_NEG;
           //  Log("position : %d  type : %d\n",i,tokens[i].type);
         }
@@ -341,7 +343,7 @@ void negative(){
 void dereference(){
     int i;
     for (i=0;i<nr_token;i++){
-        if (tokens[i].type == TK_MU  && (tokens[i-1].type < TK_LPA || i==0) ){
+        if (tokens[i].type == TK_MU  && (tokens[i-1].type <= TK_LPA || i==0) ){
             tokens[i].type=TK_DER;
            // Log("position : %d  type : %d\n",i,tokens[i].type);
         }
@@ -359,8 +361,8 @@ uint32_t expr(char *e, bool *success) {
 
   /* TODO: Insert codes to evaluate the expression. */
   else {
-      negative();
-      dereference();
+      negative();        //make  subtraction  to negative
+      dereference();    // make token multiplication to dereference 
 //      int i;
 //      printf("nr_token: %d\n",nr_token);
 //      for (i=0;i<nr_token;i++){
