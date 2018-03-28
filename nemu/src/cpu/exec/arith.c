@@ -7,7 +7,7 @@ make_EHelper(add) {
 }
 
 make_EHelper(sub) {
-  TODO();
+ // rtl_sub()
 
   print_asm_template2(sub);
 }
