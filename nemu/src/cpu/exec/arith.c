@@ -7,8 +7,9 @@ make_EHelper(add) {
 }
 
 make_EHelper(sub) {
- rtl_sub (&id_dest->val,&id_dest->val,&id_src->val);
-  print_asm_template2(sub);
+// rtl_sub (&id_dest->val,&id_dest->val,&id_src->val);
+ printf("%x %x %x \n",id_dest->val,id_dest->val,id_src->val);
+ print_asm_template2(sub);
 }
 
 make_EHelper(cmp) {
