@@ -32,7 +32,7 @@ static inline const char* get_cc_name(int subcode) {
   };
   return cc_name[subcode];
 }
-
+//make_rtl_arith_logic(sub);
 #ifdef DEBUG
 #define print_asm(...) Assert(snprintf(decoding.assembly, 80, __VA_ARGS__) < 80, "buffer overflow!")
 #else

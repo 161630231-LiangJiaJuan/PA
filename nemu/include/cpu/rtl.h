@@ -28,7 +28,7 @@ static inline void rtl_li(rtlreg_t* dest, uint32_t imm) {
     *dest = concat(c_, name) (*src1, *src2); \
   } \
   static inline void concat3(rtl_, name, i) (rtlreg_t* dest, const rtlreg_t* src1, int imm) { \
-    *dest = concat(c_, name) (*src1, imm); \
+   *dest = concat(c_, name) (*src1, imm); \
   }
 
 
@@ -113,11 +113,12 @@ static inline void rtl_sr(int r, int width, const rtlreg_t* src1) {
 
 #define make_rtl_setget_eflags(f) \
   static inline void concat(rtl_set_, f) (const rtlreg_t* src) { \
-    TODO(); \
-  } \
+     TODO();\
+  }\
   static inline void concat(rtl_get_, f) (rtlreg_t* dest) { \
-    TODO(); \
+     *dest=cpu.f;\
   }
+
 
 make_rtl_setget_eflags(CF)
 make_rtl_setget_eflags(OF)
