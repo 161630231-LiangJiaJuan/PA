@@ -14,8 +14,9 @@ make_EHelper(and) {
 
 make_EHelper(xor) {
   rtl_xor(&t1,&id_dest->val,&id_src->val);
-  rtl_set_CF(0);
-  rtl_set_OF(0);
+  operand_write(id_dest,&t1);
+  rtl_set_CF(&tzero);
+  rtl_set_OF(&tzero);
   print_asm_template2(xor);
 }
 
