@@ -7,11 +7,11 @@ make_EHelper(add) {
 }
 
 make_EHelper(sub) {
- printf("%x %x %x \n",id_dest->val,id_dest->val,id_src->val);
+ printf("%x %x %x \n",t1,id_dest->val,id_src->val);
  rtl_sub (&t1,&id_dest->val,&id_src->val);
 // rtl_sr_l(R_ESP,&id_dest->val);
 operand_write(id_dest,&t1);
- printf("%x %x %x \n",id_dest->val,id_dest->val,id_src->val);
+ printf("%x %x %x \n",t1,id_dest->val,id_src->val);
  print_asm_template2(sub);
 }
 
