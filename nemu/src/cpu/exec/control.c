@@ -33,7 +33,7 @@ decoding.jmp_eip=id_dest->val+*eip; //id_dest->val;
 }
 
 make_EHelper(ret) {
-  TODO();
+ rtl_pop(&cpu.eip);
 
   print_asm("ret");
 }
