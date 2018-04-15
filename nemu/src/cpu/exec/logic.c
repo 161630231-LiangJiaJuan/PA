@@ -17,7 +17,7 @@ make_EHelper(xor) {
   operand_write(id_dest,&t1);
   rtl_set_CF(&tzero);
   rtl_set_OF(&tzero);
-  printf("CF:%d OF:%d\n",cpu.CF,cpu.OF);
+  printf("CF:%d OF:%d ZF:%d SF:%d\n",cpu.CF,cpu.OF,cpu.ZF,cpu.SF);
   print_asm_template2(xor);
 }
 
