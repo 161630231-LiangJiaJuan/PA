@@ -9,7 +9,20 @@ make_EHelper(add) {
 make_EHelper(sub) {
  printf("%x %x %x \n",t1,id_dest->val,id_src->val);
  rtl_sub (&t1,&id_dest->val,&id_src->val);
-operand_write(id_dest,&t1);
+ operand_write(id_dest,&t1);
+ 
+ rtl_update_ZFSF(&t1,id_dest->width);
+
+ rtl_sltu(&t3,&id_dest->val,&id_src->val);
+ rtl_or(&t0,&t3,&t0);
+ rtl_set_CF(&t0);
+ 
+ rtl_xor(&t0,&id_dest->val,&id_src->val);
+ rtl_xor(&t2,&id_dest->val,&t1);
+ rtl_and(&t0,&t0,&t2);
+ rtl_msb(&t0,&t0,id_dest->width);
+ rtl_set_OF(&t0);
+
  printf("%x %x %x \n",t1,id_dest->val,id_src->val);
  print_asm_template2(sub);
 }
