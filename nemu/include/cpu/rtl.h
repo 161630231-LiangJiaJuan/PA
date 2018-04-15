@@ -144,7 +144,7 @@ static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
 }
 
 static inline void rtl_push(const rtlreg_t* src1) {
-  cpu. esp =cpu.esp - 4;
+  rtl_subi(&cpu.esp,&cpu.esp,4);
  rtl_sm(&cpu.esp,4,src1); 
     
 }
@@ -153,7 +153,7 @@ static inline void rtl_pop(rtlreg_t* dest) {
   // dest <- M[esp]
     rtl_lm(dest,&cpu.esp,4);
   // esp <- esp + 4
-    cpu.esp=cpu.esp+4;
+   rtl_addi(&cpu.esp,&cpu.esp,4);
   
 }
 
@@ -169,7 +169,7 @@ static inline void rtl_eqi(rtlreg_t* dest, const rtlreg_t* src1, int imm) {
 
 static inline void rtl_neq0(rtlreg_t* dest, const rtlreg_t* src1) {
   // dest <- (src1 != 0 ? 1 : 0)
-  *dest = ( src1 != 0 ? 1 : 0);
+  *dest = ( *src1 != 0 ? 1 : 0);
 }
 
 static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
