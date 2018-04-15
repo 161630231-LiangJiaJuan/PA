@@ -7,7 +7,7 @@ make_EHelper(add) {
 }
 
 make_EHelper(sub) {
- printf("%x %x %x \n",t1,id_dest->val,id_src->val);
+// printf("%x %x %x \n",t1,id_dest->val,id_src->val);
  rtl_sub (&t1,&id_dest->val,&id_src->val);
  operand_write(id_dest,&t1);
  
@@ -23,7 +23,7 @@ make_EHelper(sub) {
  rtl_msb(&t0,&t0,id_dest->width);
  rtl_set_OF(&t0);
 
- printf("%x %x %x \n",t1,id_dest->val,id_src->val);
+// printf("%x %x %x \n",t1,id_dest->val,id_src->val);
  print_asm_template2(sub);
 }
 
