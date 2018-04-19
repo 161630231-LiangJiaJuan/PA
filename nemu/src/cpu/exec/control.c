@@ -33,8 +33,8 @@ decoding.jmp_eip=id_dest->val+*eip; //id_dest->val;
 }
 
 make_EHelper(ret) {
- rtl_pop(&t0);
- rtl_li(eip,t0);
+ rtl_pop(eip);
+// rtl_li(eip,t0);
   print_asm("ret");
 }
 
