@@ -29,9 +29,9 @@ make_EHelper(mul);
 make_EHelper(imul1);
 make_EHelper(imul2);
 
-make_EHelper();
+make_EHelper(movzx);
 make_EHelper(nop);
-make_EHelper();
+make_EHelper(movsx);
 make_EHelper();
 make_EHelper();
 make_EHelper();
