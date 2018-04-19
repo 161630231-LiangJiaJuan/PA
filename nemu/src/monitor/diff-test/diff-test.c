@@ -156,11 +156,11 @@ void difftest_step(uint32_t eip) {
             break;
         }
     }*/
-    if (cpu.ebx!=r.ebx){
+ /*   if (cpu.ebx!=r.ebx){
 
         printf("diff in eax \n");
         diff= true;
-    }
+    }*/
     if (cpu.eip!=r.eip){
         printf("diff in eip \n");
         diff= true;
