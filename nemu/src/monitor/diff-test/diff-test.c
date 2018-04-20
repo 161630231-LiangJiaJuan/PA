@@ -152,8 +152,8 @@ void difftest_step(uint32_t eip) {
     for (int j=0;j<8;j++){
         if (reg_l(j)!= r.array[j] ){
             diff = true ;
-            printf("diff in %s \n",regsl[j]);
-            break;
+            printf("diff in %s nemu:%08x qemu:%08x \n",regsl[j],reg_l(j),r.array[j]);
+            
         }
     }
  /*   if (cpu.ebx!=r.ebx){
