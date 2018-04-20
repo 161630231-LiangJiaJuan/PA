@@ -33,7 +33,7 @@ make_EHelper(movzx);
 make_EHelper(nop);
 make_EHelper(movsx);
 make_EHelper(jcc);
-make_EHelper();
+make_EHelper(cltd);
 make_EHelper();
 make_EHelper();
 make_EHelper();
