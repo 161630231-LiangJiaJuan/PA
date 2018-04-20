@@ -156,29 +156,40 @@ void difftest_step(uint32_t eip) {
             
         }
     }
- /*   if (cpu.ebx!=r.ebx){
-
-        printf("diff in eax \n");
-        diff= true;
-    }*/
     if (cpu.eip!=r.eip){
         printf("diff in eip \n");
         diff= true;
     }
-/*    if(cpu.ZF!=r.zf ) {
+#define DIFF_eflags
+#ifdef DIFF_eflags
+    uint32_t temp;
+    temp=r.eflags<<(31-6);
+    temp=temp>>31;
+    if(cpu.ZF!= temp ) {
         printf("diff in ZF\n");
         diff=true;
     }
-    if (cpu.SF != r.sf){
+
+    temp=r.eflags<<(31-7);
+    temp=temp>>31;
+    if (cpu.SF != temp){
         printf("diff in SF\n");
         diff=true;
     }
-    if (cpu.OF != r.of){
+    temp=r.eflags<<(31-11);
+    temp=temp>>31;
+    if (cpu.OF != temp){
         printf("diff in OF\n");
         diff = true;
     }
-    if (cpu.)
-*/
+    temp=r.eflags<<(31-0);
+    temp=temp>>31;
+    if (cpu.CF != temp){
+        printf ("diff in CF\n");
+        diff =true;
+    }
+
+#endif
   if (diff) {
     nemu_state = NEMU_END;
   }
