@@ -33,6 +33,11 @@ decoding.jmp_eip=id_dest->val+*eip; //id_dest->val;
 }
 
 make_EHelper(ret) {
+ if(decoding.is_operand_size_16){
+     rtl_pop(eip);
+     rtl_andi(eip,eip,0x0000ffff);
+ }
+ else
  rtl_pop(eip);
 // rtl_li(eip,t0);
   print_asm("ret");
