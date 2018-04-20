@@ -38,7 +38,7 @@ make_EHelper(ret) {
      rtl_andi(eip,eip,0x0000ffff);
  }
  else
- rtl_pop(&cpu.eip);
+ rtl_pop(eip);
 // rtl_li(eip,t0);
   print_asm("ret");
 }
