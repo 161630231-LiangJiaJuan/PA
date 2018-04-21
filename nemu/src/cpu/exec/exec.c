@@ -235,6 +235,7 @@ void exec_wrapper(bool print_flag) {
     printf("eax: %x\n", reg_l(R_EAX));
 #ifdef DEBUG
   int instr_len = decoding.seq_eip - cpu.eip;
+  printf("%d %d %d\n", decoding.seq_eip, cpu.eip, 50 - (12 + 3 * instr_len));
   sprintf(decoding.p, "%*.s", 50 - (12 + 3 * instr_len), "");
   strcat(decoding.asm_buf, decoding.assembly);
   Log_write("%s\n", decoding.asm_buf);
