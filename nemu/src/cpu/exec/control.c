@@ -39,8 +39,11 @@ make_EHelper(ret) {
      decoding.jmp_eip=*eip;
  }
  else{
- rtl_pop(&t0);
- decoding.jmp_eip = t0;
+ printf("eax: %x\n", reg_l(R_EAX));
+ rtl_pop(eip);
+ decoding.jmp_eip = *eip;
+
+ printf("eax: %x\n", reg_l(R_EAX));
  }
   print_asm("ret");
 }
