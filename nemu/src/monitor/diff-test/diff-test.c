@@ -157,7 +157,7 @@ void difftest_step(uint32_t eip) {
         }
     }
     if (cpu.eip!=r.eip){
-        printf("diff in eip \n");
+        printf("diff in eip: nemu: 0x%08x qemu: 0x%08x \n",cpu.eip,r.eip);
         diff= true;
     }
 //#define DIFF_eflags
