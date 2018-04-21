@@ -48,12 +48,12 @@ make_EHelper(sar) {
     t1=t1/t2;
   }
   // unnecessary to update CF and OF in NEMU
-
+  operand_write(id_dest,&t1);
   print_asm_template2(sar);
 }
 
 make_EHelper(shl) {
-  TODO();
+   
   // unnecessary to update CF and OF in NEMU
 
   print_asm_template2(shl);
