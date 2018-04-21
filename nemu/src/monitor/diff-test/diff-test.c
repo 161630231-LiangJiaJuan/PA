@@ -160,7 +160,7 @@ void difftest_step(uint32_t eip) {
         printf("diff in eip \n");
         diff= true;
     }
-#define DIFF_eflags
+//#define DIFF_eflags
 #ifdef DIFF_eflags
 
 
