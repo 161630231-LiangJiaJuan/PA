@@ -232,10 +232,8 @@ void exec_wrapper(bool print_flag) {
   decoding.seq_eip = cpu.eip;
   exec_real(&decoding.seq_eip);
 
-    printf("eax: %x\n", reg_l(R_EAX));
 #ifdef DEBUG
   int instr_len = decoding.seq_eip - cpu.eip;
-  printf("%x %x %d\n", decoding.seq_eip, cpu.eip, 50 - (12 + 3 * instr_len));
   sprintf(decoding.p, "%*.s", 50 - (12 + 3 * instr_len), "");
   strcat(decoding.asm_buf, decoding.assembly);
   Log_write("%s\n", decoding.asm_buf);
@@ -248,10 +246,8 @@ void exec_wrapper(bool print_flag) {
   uint32_t eip = cpu.eip;
 #endif
 
-    printf("2eax: %x\n", reg_l(R_EAX));
   update_eip();
 
-    printf("3eax: %x\n", reg_l(R_EAX));
 #ifdef DIFF_TEST
   void difftest_step(uint32_t);
   difftest_step(eip);
