@@ -39,4 +39,5 @@ make_EHelper(div);
 make_EHelper(jmp);
 make_EHelper(not);
 make_EHelper(leave);
+make_EHelper();
 make_EHelper(nemu_trap);
