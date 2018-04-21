@@ -27,6 +27,7 @@ void cpu_exec(uint64_t n) {
     /* Execute one instruction, including instruction fetch,
      * instruction decode, and the actual execution. */
     exec_wrapper(print_flag);
+    printf("eax: %x\n", reg_l(R_EAX));
 
 #ifdef DEBUG
     /* TODO: check watchpoints here. */
