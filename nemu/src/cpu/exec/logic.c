@@ -40,7 +40,13 @@ make_EHelper(or) {
 }
 
 make_EHelper(sar) {
-  TODO();
+  rtl_mv(&t0,&id_src->val);
+  rtl_mv(&t1,&id_dest->val);
+  rtl_li(&t2,2);
+  for(int i=0;i<t0;i++){
+    //  rtl_idiv(&t1,&t1,&t2);
+    t1=t1/t2;
+  }
   // unnecessary to update CF and OF in NEMU
 
   print_asm_template2(sar);
