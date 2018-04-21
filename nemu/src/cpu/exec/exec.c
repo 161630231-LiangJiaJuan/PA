@@ -247,10 +247,10 @@ void exec_wrapper(bool print_flag) {
   uint32_t eip = cpu.eip;
 #endif
 
-    printf("eax: %x\n", reg_l(R_EAX));
+    printf("2eax: %x\n", reg_l(R_EAX));
   update_eip();
 
-    printf("eax: %x\n", reg_l(R_EAX));
+    printf("3eax: %x\n", reg_l(R_EAX));
 #ifdef DIFF_TEST
   void difftest_step(uint32_t);
   difftest_step(eip);
