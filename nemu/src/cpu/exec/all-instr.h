@@ -40,7 +40,7 @@ make_EHelper(jmp);
 make_EHelper(not);
 make_EHelper(leave);
 make_EHelper(call_rm);
-make_EHelper();
+make_EHelper(jmp_rm);
 make_EHelper();
 make_EHelper();
 make_EHelper(nemu_trap);
