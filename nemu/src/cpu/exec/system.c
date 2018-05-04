@@ -46,8 +46,7 @@ void pio_write(ioaddr_t, int, uint32_t);
 
 make_EHelper(in) {
     
-  t0=(pio_read(id_src->val,4));
-  operand_write(id_dest,&t0);
+  t0=(pio_read(id_src->val,2));
 
   print_asm_template2(in);
 
@@ -57,7 +56,7 @@ make_EHelper(in) {
 }
 
 make_EHelper(out) {
-  pio_write(id_dest->val,4,id_src->val); 
+  pio_write(id_dest->val,2,id_src->val); 
   
   print_asm_template2(out);
 
