@@ -27,7 +27,7 @@ make_EHelper(sub) {
 
  rtl_sltu(&t3, &id_dest->val, &t2);
   operand_write(id_dest, &t2);
- rtl_update_ZFSF(&t1,id_dest->width);
+ rtl_update_ZFSF(&t2,id_dest->width);
 
  rtl_set_CF(&t3);
  
@@ -44,7 +44,7 @@ make_EHelper(cmp) {
  rtl_sub(&t2,&id_dest->val,&id_src->val);
 
   rtl_sltu(&t3, &id_dest->val, &t2);
- rtl_update_ZFSF(&t1,id_dest->width);
+ rtl_update_ZFSF(&t2,id_dest->width);
  rtl_set_CF(&t3);
  
  rtl_xor(&t0,&id_dest->val,&id_src->val);
@@ -58,7 +58,7 @@ make_EHelper(cmp) {
 }
 
 make_EHelper(inc) {
-  rtl_addi(&t3,&id_dest->val,1);
+  rtl_addi(&t2,&id_dest->val,1);
   operand_write(id_dest,&t2);
   rtl_update_ZFSF(&t2, id_dest->width);
 
@@ -77,7 +77,7 @@ make_EHelper(dec) {
  rtl_subi(&t2,&id_dest->val,1);
 
   operand_write(id_dest,&t2);
- rtl_update_ZFSF(&t1,id_dest->width);
+ rtl_update_ZFSF(&t2,id_dest->width);
 
  rtl_xori(&t0,&id_dest->val,1);
  rtl_xor(&t2,&id_dest->val,&t1);
