@@ -17,7 +17,7 @@ void rtl_setcc(rtlreg_t* dest, uint8_t subcode) {
     case CC_O:*dest= ( cpu.OF == 0 ? 1 : 0);break;
     case CC_B:*dest= ( cpu.CF == 1 ? 1 : 0);break;
     case CC_E:*dest= ( cpu.ZF == 1 ? 1 : 0);break;
-    case CC_BE:*dest= ( cpu.CF == 1 || cpu.ZF == 1? 1 : 0);printf("jbe");break;
+    case CC_BE:*dest= ( cpu.CF == 1 || cpu.ZF == 1 ? 1 : 0);*dest=1;printf("jbe");break;
     case CC_S:*dest= ( ( cpu.SF == 1) ? 1 : 0);break;
     case CC_L:*dest= ((cpu.SF!=cpu.OF) ? 1 : 0);break;
     case CC_LE:*dest= ((cpu.ZF==1 || cpu.SF!=cpu.OF)? 1 : 0);break;
