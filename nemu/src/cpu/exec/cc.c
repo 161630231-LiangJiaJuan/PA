@@ -21,6 +21,13 @@ void rtl_setcc(rtlreg_t* dest, uint8_t subcode) {
     case CC_S:*dest= ( ( cpu.SF == 1) ? 1 : 0);break;
     case CC_L:*dest= ((cpu.SF!=cpu.OF) ? 1 : 0);break;
     case CC_LE:*dest= ((cpu.ZF==1 || cpu.SF!=cpu.OF)? 1 : 0);break;
+    case CC_NBE:*dest= ((cpu.CF==0 || cpu.ZF==0) ? 1:0);break;
+    case CC_NL:*dest=(cpu.ZF==1 || cpu.SF==cpu.OF ? 1 : 0);break;
+    case CC_NLE: *dest=(cpu.ZF==0 && cpu.SF==cpu.OF ? 1 : 0);break;
+    case CC_NS: *dest = (cpu.SF == 0 ? 1 : 0); break;
+    case CC_NO: *dest = (cpu.OF == 0 ? 1 : 0);break;
+    case CC_NB: *dest= (cpu.CF==0 ? 1 : 0);break;
+    case CC_NE : *dest = (cpu.ZF==0) ? 1 : 0 ;break;
     default: panic("should not reach here");
     case CC_P: panic("n86 does not have PF");break;
   }
