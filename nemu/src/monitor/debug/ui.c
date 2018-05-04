@@ -127,6 +127,7 @@ static int cmd_info(char *args){
                     printf("%s: 0x%x  %d\n",regsl[j],reg_l(j),reg_l(j));
                 }
                 printf("eip: 0x%x %d\n",cpu.eip,cpu.eip);
+                printf("CF:%d ZF:%d SF:%d OF:%d IF:%d \n",cpu.CF,cpu.ZF,cpu.SF,cpu.OF,cpu.IF);
                 return 0;
             }
             case 'w':{
