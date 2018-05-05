@@ -88,3 +88,29 @@ make_EHelper(not) {
 
   print_asm_template1(not);
 }
+
+make_EHelper(rol){
+    rtl_mv(&t3,&id_src->val);
+    rtl_mv(&t2,&id_dest->val);
+    while(t3!=0){
+        rtl_msb(&t1,&t2,id_dest->width);
+        rtl_set_CF(&t1);
+        rtl_shli(&t2,&t2,1);
+        rtl_add(&t2,&t2,&t1);
+        rtl_subi(&t3,&t3,1);
+    }
+    operand_write(id_dest,&t2);
+    if ( id_src->val  == 1){
+        rtl_msb(&t2,&t2,id_dest->width);
+        if(t2 != cpu.CF){
+            rtl_set_OF(&id_src->val);
+        }
+        else{
+            rtl_set_OF(&tzero);
+        }
+    }
+}
+
+make_EHelper(ror){
+
+}

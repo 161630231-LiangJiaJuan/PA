@@ -1,6 +1,6 @@
 #include <am.h>
 #include <x86.h>
-
+#include <stdio.h>
 #define RTC_PORT 0x48   // Note that this is not standard
 static unsigned long boot_time;
 
@@ -9,7 +9,7 @@ void _ioe_init() {
 }
 
 unsigned long _uptime() {
-  return 0;
+  return inl(RTC_PORT)-boot_time;
 }
 
 uint32_t* const fb = (uint32_t *)0x40000;
@@ -32,5 +32,10 @@ void _draw_sync() {
 }
 
 int _read_key() {
+  if(inl(0x64)==1){
+      
+      return (inl(0x60));
+  }
+  else
   return _KEY_NONE;
 }
