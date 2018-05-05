@@ -21,7 +21,7 @@ _Screen _screen = {
 
 extern void* memcpy(void *, const void *, int);
 
-static inline int min(int x, int y){
+int min(int x, int y){
 
 
  return (x < y) ? x : y;  
