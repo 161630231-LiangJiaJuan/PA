@@ -109,3 +109,7 @@ make_EHelper(rol){
         }
     }
 }
+
+make_EHelper(ror){
+
+}
