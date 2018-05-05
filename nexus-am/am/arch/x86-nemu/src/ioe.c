@@ -1,6 +1,6 @@
 #include <am.h>
 #include <x86.h>
-
+#include <stdio.h>
 #define RTC_PORT 0x48   // Note that this is not standard
 static unsigned long boot_time;
 
@@ -33,7 +33,7 @@ void _draw_sync() {
 
 int _read_key() {
   if(inl(0x64)==1){
-      
+      printf("press");
       return inl(0x64);
   }
   else
