@@ -94,6 +94,7 @@ make_EHelper(rol){
     rtl_mv(&t2,&id_dest->val);
     while(t3!=0){
         rtl_msb(&t1,&t2,id_dest->width);
+        rtl_set_CF(&t1);
         rtl_shli(&t2,&t2,1);
         rtl_add(&t2,&t2,&t1);
         rtl_subi(&t3,&t3,1);
