@@ -28,7 +28,8 @@ void _draw_rect(const uint32_t *pixels, int x, int y, int w, int h) {
 
     for(int i=0;i<h;i++){
        // if(me)
-        memcpy(&fb[x+(y+i)*_screen.width],pixels,w);
+        //memcpy(&fb[x+(y+i)*_screen.width],pixels,w);
+        memcpy(fb+x+(y+i)*_screen.width,pixels,w);
         pixels+=w;
     }
   
