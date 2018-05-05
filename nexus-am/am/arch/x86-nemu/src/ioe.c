@@ -33,8 +33,8 @@ void _draw_sync() {
 
 int _read_key() {
   if(inl(0x64)==1){
-      printf("press");
-      return inl(0x64);
+      
+      return (inl(0x60));
   }
   else
   return _KEY_NONE;
