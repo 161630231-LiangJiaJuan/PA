@@ -31,7 +31,7 @@ int min(int x, int y){
 void _draw_rect(const uint32_t *pixels, int x, int y, int w, int h) {
   
 
-    int cp_bytes=sizeof(uint32_t)* min (w,_screen.width - x);
+    int cp_bytes= min (w,_screen.width - x);
     cp_bytes*=4;
     for(int i=0;i<h&&y+i<_screen.height;i++){
         memcpy(fb+x+(y+i)*_screen.width,pixels,cp_bytes);

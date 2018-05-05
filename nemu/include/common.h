@@ -28,3 +28,5 @@ typedef uint16_t ioaddr_t;
 #define true 1
 
 #endif
+
+volatile static int dummy;
