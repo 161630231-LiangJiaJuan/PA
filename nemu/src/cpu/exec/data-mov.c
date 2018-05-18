@@ -18,7 +18,14 @@ make_EHelper(pop) {
 }
 
 make_EHelper(pusha) {
-  TODO();
+  rtl_mv(&t0,&cpu.esp);
+  for(int i=0;i<8;i++){
+      if(i==R_ESP){
+          rtl_push(&t0);
+          continue;
+      }
+      rtl_push(&reg_l(i));
+  }
 
   print_asm("pusha");
 }
