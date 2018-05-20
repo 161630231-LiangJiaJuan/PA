@@ -48,6 +48,8 @@ make_EHelper(ror);
 make_EHelper(int);
 make_EHelper(lidt);
 make_EHelper(pusha);
+make_EHelper(popa);
+make_EHelper(iret);
 make_EHelper();
 make_EHelper();
 make_EHelper(rol);
