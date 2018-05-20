@@ -33,7 +33,7 @@ make_EHelper(pusha) {
 make_EHelper(popa) {
   for(int i=7;i>=0;i--){
     if(i==R_ESP)
-        continue;
+       ; //continue;
     else
         rtl_pop(&reg_l(i));
   }
