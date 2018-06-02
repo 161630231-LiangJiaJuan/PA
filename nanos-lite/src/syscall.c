@@ -10,7 +10,7 @@ ssize_t sys_write(int fd,const void *buf,size_t count){
     if (fd==1 || fd == 2){
         int i;
         for (i=0;i<count;i++){
-            char c=*((char *)buf);
+            char c=*((char *)buf+i);
             _putc(c);
         }
         return i;
