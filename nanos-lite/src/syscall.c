@@ -21,7 +21,7 @@ ssize_t sys_write(int fd,const void *buf,size_t count){
 _RegSet* do_syscall(_RegSet *r) {
   uintptr_t a[4];
   a[0] = SYSCALL_ARG1(r);
-
+    Log("sys_call");
   switch (a[0]) {
     case SYS_none:{ SYSCALL_ARG1(r)=sys_none();
     break; }
