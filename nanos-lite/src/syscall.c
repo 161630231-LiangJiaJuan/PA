@@ -12,13 +12,12 @@ _RegSet* do_syscall(_RegSet *r) {
 
   switch (a[0]) {
     case SYS_none:{ SYSCALL_ARG1(r)=sys_none();
-        printf("SYS_none \n");
     break; }
 
- /*   case SYS_exit:{
+    case SYS_exit:{
         _halt(0);
         break;
-    }*/
+    }
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 
