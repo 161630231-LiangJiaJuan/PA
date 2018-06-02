@@ -30,11 +30,11 @@ _RegSet* do_syscall(_RegSet *r) {
         _halt(0);
         break;
     }
-    case SYS_write:{
+   /* case SYS_write:{
         Log("sys_write");
         SYSCALL_ARG1(r)=sys_write(a[0],&a[1],a[2]);
         break;
-    }
+    }*/
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 
