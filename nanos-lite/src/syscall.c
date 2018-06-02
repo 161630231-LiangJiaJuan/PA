@@ -11,6 +11,7 @@ ssize_t sys_write(int fd,const void *buf,size_t count){
         int i;
         for (i=0;i<count;i++){
             char c=*((char *)(buf+i));
+            Log("%c",c);
             _putc(c);
         }
         return i;
@@ -21,7 +22,6 @@ ssize_t sys_write(int fd,const void *buf,size_t count){
 _RegSet* do_syscall(_RegSet *r) {
   uintptr_t a[4];
   a[0] = SYSCALL_ARG1(r);
-    Log("sys_call");
   switch (a[0]) {
     case SYS_none:{ 
         Log("sys_none");
