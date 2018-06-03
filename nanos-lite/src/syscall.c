@@ -46,8 +46,8 @@ _RegSet* do_syscall(_RegSet *r) {
         break;
     }
     case SYS_brk:{
-        Log("sys_brk");
         SYSCALL_ARG1(r)=sys_brk(r->ebx);
+        Log("sys_brk %d ",r->eax);
         break;
     }
     default: panic("Unhandled syscall ID = %d", a[0]);
