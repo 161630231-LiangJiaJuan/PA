@@ -24,7 +24,7 @@ ssize_t sys_write(int fd,const void *buf,size_t count){
 
 int  sys_brk(unsigned long addr){
     _end+=addr;
-        Log("sys_brk %10p %x",&_end,addr);
+        Log("sys_brk %x %x",_end,addr);
     return 0;
 }
 _RegSet* do_syscall(_RegSet *r) {
