@@ -1,5 +1,6 @@
 #include "fs.h"
 
+void ramdisk_read(void *buf,off_t offset,size_t len);
 typedef struct {
   char *name;
   size_t size;
@@ -26,7 +27,9 @@ void init_fs() {
   // TODO: initialize the size of /dev/fb
 }
 
-
+ssize_t fs_filesz(int fd){
+    return file_table[fd].size;
+}
 int fs_open(const char *pathname,int flags,int mode){
     int i=0;
     for(i=0;i<NR_FILES;i++){
@@ -41,4 +44,18 @@ int fs_open(const char *pathname,int flags,int mode){
 
     }
     return 0;
+}
+
+ssize_t fs_read(int fd,void *buf,size_t len){
+    if(fd<=2){
+        Log("fd<=2");
+        return -1;
+    }
+    else{
+        Finfo temp=file_table[fd];
+        size_t read_size= len < (fs_filesz(fd)-temp.open_offset) ? len : (fs_filesz(fd)-temp.open_offset);
+        ramdisk_read(buf,temp.disk_offset+temp.open_offset,read_size);
+        file_table[fd].open_offset+=read_size;
+        return read_size;
+    }
 }

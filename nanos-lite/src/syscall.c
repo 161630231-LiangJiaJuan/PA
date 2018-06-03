@@ -32,6 +32,11 @@ int fs_open(const char *path,int flags,int mode);
 int sys_open(const char *path,int flags,mode_t mode){
     return fs_open(path,flags,mode);
 }
+
+int fs_read(int fd,void *buf,size_t len);
+ssize_t sys_read(int fd,void *buf,size_t len){
+    return fs_read(fd,buf,len);
+}
 _RegSet* do_syscall(_RegSet *r) {
   uintptr_t a[4];
   a[0] = SYSCALL_ARG1(r);
@@ -59,6 +64,11 @@ _RegSet* do_syscall(_RegSet *r) {
     case SYS_open:{
         SYSCALL_ARG1(r)=sys_open((const char*)r->ebx,r->ecx,r->edx);
         Log("sys_open");
+        break;
+    }
+    case SYS_read:{
+        SYSCALL_ARG1(r)=sys_read(r->ebx,(void *)r->ecx,r->edx);
+        Log("sys_read");
         break;
     }
     default: panic("Unhandled syscall ID = %d", a[0]);
