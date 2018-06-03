@@ -34,7 +34,7 @@ _RegSet* do_syscall(_RegSet *r) {
         break;
     }
     case SYS_write:{
-       // Log("sys_write");
+        Log("sys_write");
         SYSCALL_ARG1(r)=sys_write(r->ebx,(void *)r->ecx,r->edx);
         break;
     }
