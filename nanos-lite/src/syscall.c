@@ -47,7 +47,7 @@ _RegSet* do_syscall(_RegSet *r) {
         break;
     }
     case SYS_brk:{
-        SYSCALL_ARG1(r)=sys_brk(r->ebx);
+        SYSCALL_ARG1(r)=sys_brk((unsigned long)r->ebx);
         //Log("sys_brk %d ",r->eax);
         break;
     }
