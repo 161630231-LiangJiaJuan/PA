@@ -27,6 +27,11 @@ int  sys_brk(unsigned long addr){
        // Log("sys_brk %x %x",_end,addr);
     return 0;
 }
+
+int fs_open(const char *path,int flags,int mode);
+int sys_open(const char *path,int flags,mode_t mode){
+    return fs_open(path,flags,mode);
+}
 _RegSet* do_syscall(_RegSet *r) {
   uintptr_t a[4];
   a[0] = SYSCALL_ARG1(r);
@@ -49,6 +54,10 @@ _RegSet* do_syscall(_RegSet *r) {
     case SYS_brk:{
         SYSCALL_ARG1(r)=sys_brk((unsigned long)r->ebx);
         //Log("sys_brk %d ",r->eax);
+        break;
+    }
+    case SYS_open:{
+        SYSCALL_ARG1(r)=sys_open((const char*)r->ebx,r->ecx,r->edx);
         break;
     }
     default: panic("Unhandled syscall ID = %d", a[0]);
