@@ -24,6 +24,7 @@ ssize_t sys_write(int fd,const void *buf,size_t count){
 
 int  sys_brk(unsigned long addr){
     _end+=addr;
+        Log("sys_brk %10p ",&_end);
     return 0;
 }
 _RegSet* do_syscall(_RegSet *r) {
@@ -47,7 +48,7 @@ _RegSet* do_syscall(_RegSet *r) {
     }
     case SYS_brk:{
         SYSCALL_ARG1(r)=sys_brk(r->ebx);
-        Log("sys_brk %d ",r->eax);
+        //Log("sys_brk %d ",r->eax);
         break;
     }
     default: panic("Unhandled syscall ID = %d", a[0]);
