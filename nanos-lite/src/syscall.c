@@ -3,7 +3,7 @@
 
 //uint32_t vaddr_read(vaddr_t addr ,int len);
 
-extern void* _end;
+extern char  _end;
 
 uintptr_t sys_none(){
     return 1;
