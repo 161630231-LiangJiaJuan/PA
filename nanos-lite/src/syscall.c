@@ -58,6 +58,7 @@ _RegSet* do_syscall(_RegSet *r) {
     }
     case SYS_open:{
         SYSCALL_ARG1(r)=sys_open((const char*)r->ebx,r->ecx,r->edx);
+        Log("sys_open");
         break;
     }
     default: panic("Unhandled syscall ID = %d", a[0]);
