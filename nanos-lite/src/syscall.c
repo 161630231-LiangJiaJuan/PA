@@ -2,6 +2,9 @@
 #include "syscall.h"
 
 //uint32_t vaddr_read(vaddr_t addr ,int len);
+
+extern void* _end;
+
 uintptr_t sys_none(){
     return 1;
 }
@@ -19,6 +22,10 @@ ssize_t sys_write(int fd,const void *buf,size_t count){
     return 0;
 }
 
+int  sys_brk(unsigned long addr){
+    _end+=addr;
+    return 0;
+}
 _RegSet* do_syscall(_RegSet *r) {
   uintptr_t a[4];
   a[0] = SYSCALL_ARG1(r);
@@ -37,6 +44,10 @@ _RegSet* do_syscall(_RegSet *r) {
         Log("sys_write");
         SYSCALL_ARG1(r)=sys_write(r->ebx,(void *)r->ecx,r->edx);
         break;
+    }
+    case SYS_brk:{
+        Log("sys_brk");
+        SYSCALL_ARG1(r)=sys_brk(r->ebx);
     }
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
