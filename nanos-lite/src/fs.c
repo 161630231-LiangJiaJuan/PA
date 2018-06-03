@@ -59,3 +59,10 @@ ssize_t fs_read(int fd,void *buf,size_t len){
         return read_size;
     }
 }
+
+int fs_close(int fd){
+    return 0;
+}
+ssize_t fs_write(int fd,const void *buf,size_t count){
+    return 0;
+}

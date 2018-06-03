@@ -37,6 +37,11 @@ int fs_read(int fd,void *buf,size_t len);
 ssize_t sys_read(int fd,void *buf,size_t len){
     return fs_read(fd,buf,len);
 }
+
+int fs_close(int fd);
+int sys_close(unsigned int fd){
+    return fs_close(fd);
+}
 _RegSet* do_syscall(_RegSet *r) {
   uintptr_t a[4];
   a[0] = SYSCALL_ARG1(r);
@@ -69,6 +74,10 @@ _RegSet* do_syscall(_RegSet *r) {
     case SYS_read:{
         SYSCALL_ARG1(r)=sys_read(r->ebx,(void *)r->ecx,r->edx);
         Log("sys_read");
+        break;
+    }
+    case SYS_close:{
+        SYSCALL_ARG1(r)=sys_close((unsigned int)r->ebx);
         break;
     }
     default: panic("Unhandled syscall ID = %d", a[0]);
