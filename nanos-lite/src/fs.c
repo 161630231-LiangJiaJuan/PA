@@ -32,7 +32,7 @@ ssize_t fs_filesz(int fd){
 }
 int fs_open(const char *pathname,int flags,int mode){
     int i=0;
-    //Log("%s",pathname);
+    Log("%s",pathname);
     for(i=0;i<NR_FILES;i++){
         if(strcmp(file_table[i].name,pathname)==0){
             file_table[i].open_offset=0;
@@ -58,7 +58,6 @@ ssize_t fs_read(int fd,void *buf,size_t len){
         size_t read_size= len < (fs_filesz(fd)-temp.open_offset) ? len : (fs_filesz(fd)-temp.open_offset);
         ramdisk_read(buf,temp.disk_offset+temp.open_offset,read_size);
         file_table[fd].open_offset+=read_size;
-        Log("%d",read_size);
         return read_size;
     }
 }
