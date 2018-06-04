@@ -88,6 +88,7 @@ _RegSet* do_syscall(_RegSet *r) {
         break;
     }
     case SYS_close:{
+        Log("sys_close fd %d",r->ebx);
         SYSCALL_ARG1(r)=sys_close((unsigned int)r->ebx);
         break;
     }
