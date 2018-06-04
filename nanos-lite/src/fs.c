@@ -55,9 +55,11 @@ ssize_t fs_read(int fd,void *buf,size_t len){
     }
     else{
         Finfo temp=file_table[fd];
+        Log("%s",temp.name);
         size_t read_size= len < (fs_filesz(fd)-temp.open_offset) ? len : (fs_filesz(fd)-temp.open_offset);
         ramdisk_read(buf,temp.disk_offset+temp.open_offset,read_size);
         file_table[fd].open_offset+=read_size;
+        Log("%d",read_size);
         return read_size;
     }
 }
