@@ -93,7 +93,7 @@ _RegSet* do_syscall(_RegSet *r) {
         break;
     }
     case SYS_lseek:{
-        SYSCALL_ARG1(r)=sys_lseek(r->ebx,r->ecx,r->edx);
+        SYSCALL_ARG1(r)=sys_lseek(r->ebx,(off_t)r->ecx,r->edx);
         break;
     }
     default: panic("Unhandled syscall ID = %d", a[0]);

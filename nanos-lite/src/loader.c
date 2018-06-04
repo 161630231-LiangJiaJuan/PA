@@ -14,7 +14,7 @@ uintptr_t loader(_Protect *as, const char *filename) {
    int fd=fs_open(filename,0,0);
    ssize_t a=fs_read(fd,DEFAULT_ENTRY,fs_filesz(fd));
    int b=fs_close(fd);
-   if(a!=0&&b==0)
+   if(a!=-1&&b==0)
   return (uintptr_t)DEFAULT_ENTRY;
   else
   return (uintptr_t)DEFAULT_ENTRY;

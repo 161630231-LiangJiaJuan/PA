@@ -70,10 +70,13 @@ ssize_t fs_write(int fd,const void *buf,size_t len){
     Finfo temp=file_table[fd];
     Log("write file %s",temp.name);
     size_t write_size= len < (fs_filesz(fd)-temp.open_offset) ? len : (fs_filesz(fd)-temp.open_offset);
-    if (fd==1 || fd ==2 ){
+  if(fd==0){
+      return 0;
+  }
+  if (fd==1 || fd ==2 ){
         int i;
         for(i=0;i<len;i++){
-            _putc(*(char *)(buf+i));
+            _putc(*((char *)(buf+i)));
 
         }
         return i;
