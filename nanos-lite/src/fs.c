@@ -32,7 +32,7 @@ ssize_t fs_filesz(int fd){
 }
 int fs_open(const char *pathname,int flags,int mode){
     int i=0;
-    Log("%s",pathname);
+    //Log("%s",pathname);
     for(i=0;i<NR_FILES;i++){
         if(strcmp(file_table[i].name,pathname)==0){
             file_table[i].open_offset=0;
@@ -54,7 +54,7 @@ ssize_t fs_read(int fd,void *buf,size_t len){
     }
     else{
         Finfo temp=file_table[fd];
-        Log("%s",temp.name);
+        Log("read file %s",temp.name);
         size_t read_size= len < (fs_filesz(fd)-temp.open_offset) ? len : (fs_filesz(fd)-temp.open_offset);
         ramdisk_read(buf,temp.disk_offset+temp.open_offset,read_size);
         file_table[fd].open_offset+=read_size;
@@ -68,7 +68,7 @@ int fs_close(int fd){
 }
 ssize_t fs_write(int fd,const void *buf,size_t len){
     Finfo temp=file_table[fd];
-    Log("%s",temp.name);
+    Log("write file %s",temp.name);
     size_t write_size= len < (fs_filesz(fd)-temp.open_offset) ? len : (fs_filesz(fd)-temp.open_offset);
     if (fd==1 || fd ==2 ){
         int i;
@@ -88,6 +88,7 @@ ssize_t fs_write(int fd,const void *buf,size_t len){
 
 off_t fs_lseek(int fd,off_t offset,int whence){
     Finfo temp=file_table[fd];
+    Log("lseek file %s",temp.name);
     off_t open_loc=temp.open_offset;
     size_t filesz=fs_filesz(fd);
     off_t final_loc=0;
