@@ -9,7 +9,8 @@ int fs_close(int fd);
 ssize_t fs_filesz(int fd);
 
 uintptr_t loader(_Protect *as, const char *filename) {
- // ramdisk_read(DEFAULT_ENTRY,0,get_ramdisk_size()); 
+ // ramdisk_read(DEFAULT_ENTRY,0,get_ramdisk_size());
+    Log("loader filename %s",filename);
    int fd=fs_open(filename,0,0);
    ssize_t a=fs_read(fd,DEFAULT_ENTRY,fs_filesz(fd));
    int b=fs_close(fd);
