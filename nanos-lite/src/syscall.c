@@ -42,6 +42,14 @@ int fs_close(int fd);
 int sys_close(unsigned int fd){
     return fs_close(fd);
 }
+
+ssize_t fs_write(int fd,const void* buf,size_t len);
+
+off_t fs_lseek(int fd, off_t offset,int whence);
+off_t sys_lseek(int fd,off_t offset,int whence){
+    return fs_lseek(fd,offset,whence);
+}
+
 _RegSet* do_syscall(_RegSet *r) {
   uintptr_t a[4];
   a[0] = SYSCALL_ARG1(r);
@@ -58,7 +66,8 @@ _RegSet* do_syscall(_RegSet *r) {
     }
     case SYS_write:{
         Log("sys_write");
-        SYSCALL_ARG1(r)=sys_write(r->ebx,(void *)r->ecx,r->edx);
+        SYSCALL_ARG1(r)=fs_write(r->ebx,(void *)r->ecx,r->edx);
+        //SYSCALL_ARG1(r)=sys_write(r->ebx,(void *)r->ecx,r->edx);
         break;
     }
     case SYS_brk:{
@@ -78,6 +87,10 @@ _RegSet* do_syscall(_RegSet *r) {
     }
     case SYS_close:{
         SYSCALL_ARG1(r)=sys_close((unsigned int)r->ebx);
+        break;
+    }
+    case SYS_lseek:{
+        SYSCALL_ARG1(r)=sys_lseek(r->ebx,r->ecx,r->edx);
         break;
     }
     default: panic("Unhandled syscall ID = %d", a[0]);
