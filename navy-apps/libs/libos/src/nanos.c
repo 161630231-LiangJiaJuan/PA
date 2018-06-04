@@ -25,12 +25,12 @@ void _exit(int status) {
 
 int _open(const char *path, int flags, mode_t mode) {
   //_exit(SYS_open);
-  return _syscall_ (SYS_open,path,flags,mode);
+  return _syscall_ (SYS_open,(const char *)path,flags,mode);
 }
 
 int _write(int fd, void *buf, size_t count){
  // _exit(SYS_write);
-  return _syscall_(SYS_write,fd,buf,count);
+  return _syscall_(SYS_write,fd,(void *)buf,count);
 }
 
 void *_sbrk(intptr_t increment){
@@ -43,7 +43,7 @@ void *_sbrk(intptr_t increment){
 
 int _read(int fd, void *buf, size_t count) {
   //_exit(SYS_read);
-  return _syscall_ (SYS_read,fd,buf,count);
+  return _syscall_ (SYS_read,fd,(void *)buf,count);
 }
 
 int _close(int fd) {

@@ -12,7 +12,7 @@ void load_prog(const char *filename) {
   int i = nr_proc ++;
   _protect(&pcb[i].as);
 
-  uintptr_t entry = loader(NULL, "/bin/hello");
+  uintptr_t entry = loader(NULL, "/dev/fb");
  // uintptr_t entry = loader(&pcb[i].as, filename);
 
   // TODO: remove the following three lines after you have implemented _umake()
