@@ -25,7 +25,7 @@ void _exit(int status) {
 
 int _open(const char *path, int flags, mode_t mode) {
   //_exit(SYS_open);
-  Log("_open %s",path);
+ // Log("_open %s",path);
   return _syscall_ (SYS_open,(const char *)path,flags,mode);
 }
 
