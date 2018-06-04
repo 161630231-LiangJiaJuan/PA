@@ -36,6 +36,7 @@ int fs_open(const char *pathname,int flags,int mode){
     for(i=0;i<NR_FILES;i++){
         if(strcmp(file_table[i].name,pathname)==0){
             file_table[i].open_offset=0;
+            Log("open fd %d",i);
             return i;
 
         }
