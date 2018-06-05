@@ -40,8 +40,8 @@ void dispinfo_read(void *buf, off_t offset, size_t len) {
 }
 
 void fb_write(const void *buf, off_t offset, size_t len) {
-    int y=offset*4/400;
-    int x=offset*4%(y*400);
+    int y=offset/400;
+    int x=offset%(400);
     _draw_rect(buf,x,y,len,len);
 }
 
