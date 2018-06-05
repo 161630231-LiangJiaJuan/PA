@@ -1,4 +1,6 @@
 #include "fs.h"
+
+size_t events_read(void *buf,size_t len);
 void ramdisk_write(const void *buf,off_t offset ,size_t len);
 void ramdisk_read(void *buf,off_t offset,size_t len);
 typedef struct {
@@ -53,6 +55,9 @@ int fs_open(const char *pathname,int flags,int mode){
 }
 
 ssize_t fs_read(int fd,void *buf,size_t len){
+    if(fd==FD_EVENTS){
+        return events_read(buf,len);
+    }
     if(fd<=2){
         Log("fd<=2");
         return -1;

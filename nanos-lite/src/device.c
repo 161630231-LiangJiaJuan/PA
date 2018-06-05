@@ -4,6 +4,8 @@
   [_KEY_##key] = #key,
 
 void _draw_rect(const uint32_t *pixels,int x,int y,int w,int h);
+int _read_key();
+unsigned long _uptime();
 
 static const char *keyname[256] __attribute__((used)) = {
   [_KEY_NONE] = "NONE",
@@ -11,6 +13,23 @@ static const char *keyname[256] __attribute__((used)) = {
 };
 
 size_t events_read(void *buf, size_t len) {
+  int key= _read_key();
+  if (key==_KEY_NONE){
+      sprintf((char *)buf,"t %s\n",_uptime());
+      return strlen((char *)buf)-1;
+  }
+  else{
+    
+    if(key>0x8000){
+        key=key-0x8000;
+        sprintf((char *)buf , "kd %s\n",keyname[key]);
+    }
+    else{
+        sprintf((char *)buf, "ku %s\n",keyname[key]);
+    
+    }
+    return strlen((char *)buf)-1;
+  }
   return 0;
 }
 
