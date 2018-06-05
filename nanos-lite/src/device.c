@@ -40,14 +40,14 @@ void dispinfo_read(void *buf, off_t offset, size_t len) {
 }
 
 void fb_write(const void *buf, off_t offset, size_t len) {
-    int y=offset/400;
-    int x=offset%(y*400);
+    int y=offset*4/400;
+    int x=offset*4%(y*400);
     _draw_rect(buf,x,y,len,len);
 }
 
 void init_device() {
   _ioe_init();
-    strcpy(dispinfo,"WIDTH : 400\nHEIGHT:300");
+    strcpy(dispinfo,"WIDTH : 400\nHEIGHT:300\n");
     Log("dispinfo %s",dispinfo);
   // TODO: print the string to array `dispinfo` with the format
   // described in the Navy-apps convention
