@@ -23,7 +23,11 @@ static Finfo file_table[] __attribute__((used)) = {
 
 #define NR_FILES (sizeof(file_table) / sizeof(file_table[0]))
 
+void dispinfo_read(void *buf,off_t offset,size_t len);
+void fb_write(const void *buf,off_t offset,size_t len);
+
 void init_fs() {
+  file_table[FD_FB].size=400*300*4;
   // TODO: initialize the size of /dev/fb
 }
 
@@ -53,6 +57,11 @@ ssize_t fs_read(int fd,void *buf,size_t len){
         Log("fd<=2");
         return -1;
     }
+    else if(fd==FD_DISPINFO){
+        Log("FD_DISPINFO read");
+        dispinfo_read(buf,file_table[fd].open_offset,len);
+        return len;
+    }
     else{
         Finfo temp=file_table[fd];
         Log("read file %s",temp.name);
@@ -80,6 +89,11 @@ ssize_t fs_write(int fd,const void *buf,size_t len){
 
         }
         return i;
+    }
+    else if (fd==FD_FB){
+        fb_write(buf,file_table[fd].open_offset,len);
+        Log("FD_FB write");
+        return len;
     }
     else{
         ramdisk_write(buf,  temp.disk_offset+temp.open_offset, write_size);
