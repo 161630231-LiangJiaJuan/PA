@@ -17,7 +17,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
     rtl_push(&ret_addr);
     decoding.is_jmp=1;
     decoding.jmp_eip =((high>>16)<<16)+((low<<16)>>16);
-    
+    cpu.CS=low>>16;    
 
 }
 
