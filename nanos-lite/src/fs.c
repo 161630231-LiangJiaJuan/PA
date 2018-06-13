@@ -65,7 +65,7 @@ ssize_t fs_read(int fd,void *buf,size_t len){
         return -1;
     }
     else if(fd==FD_DISPINFO){
-        Log("FD_DISPINFO read");
+       // Log("FD_DISPINFO read");
         dispinfo_read(buf,file_table[fd].open_offset+file_table[fd].disk_offset,read_size);
         return read_size;
     }

@@ -84,7 +84,7 @@ _RegSet* do_syscall(_RegSet *r) {
     }
     case SYS_read:{
         SYSCALL_ARG1(r)=sys_read(r->ebx,(void *)r->ecx,r->edx);
-        Log("sys_read");
+       // Log("sys_read");
         break;
     }
     case SYS_close:{
