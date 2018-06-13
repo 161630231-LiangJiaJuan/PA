@@ -15,17 +15,17 @@ static const char *keyname[256] __attribute__((used)) = {
 size_t events_read(void *buf, size_t len) {
   int key= _read_key();
   if (key==_KEY_NONE){
-     return  sprintf((char *)buf,"%s %u\n","t",_uptime())-1;
+     return  sprintf((char *)buf,"t %u\n",_uptime())-1;
       return strlen((char *)buf)-1;
   }
   else{
     
     if(key>0x8000){
         key=key-0x8000;
-       return sprintf((char *)buf , "%s %s\n","kd",keyname[key])-1;
+       return sprintf((char *)buf , "kd %s\n",keyname[key])-1;
     }
     else{
-        return sprintf((char *)buf, "%s %s\n","ku",keyname[key])-1;
+        return sprintf((char *)buf, "ku %s\n",keyname[key])-1;
     
     }
     return strlen((char *)buf)-1;
