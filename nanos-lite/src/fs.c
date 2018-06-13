@@ -132,7 +132,7 @@ off_t fs_lseek(int fd,off_t offset,int whence){
         final_loc=0;
     }
     if(final_loc>filesz){
-        final_loc=filesz-1;
+        final_loc=filesz;
     }
     file_table[fd].open_offset=final_loc;
     return final_loc;
