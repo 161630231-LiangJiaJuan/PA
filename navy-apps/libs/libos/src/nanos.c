@@ -12,6 +12,7 @@
 // FIXME: this is temporary
 
 extern char  _end;
+extern char *program_break = &_end;
 
 int _syscall_(int type, uintptr_t a0, uintptr_t a1, uintptr_t a2){
   int ret = -1;
@@ -35,9 +36,12 @@ int _write(int fd, void *buf, size_t count){
 }
 
 void *_sbrk(intptr_t increment){
-  void *pre_end=&_end;
-  if(_syscall_( SYS_brk,increment,0,0)==0)
+  char *pre_end=&_end;
+  char *cur_end=&_end+increment;
+  if(_syscall_( SYS_brk,(intptr_t)cur_end,0,0)==0){
+      program_break=cur_end;
       return (void *)pre_end;
+  }
   else
   return (void *)-1;
 }
