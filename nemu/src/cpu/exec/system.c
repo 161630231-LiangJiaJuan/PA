@@ -6,7 +6,7 @@ void diff_test_skip_nemu();
 make_EHelper(lidt) {
   t0=(vaddr_read(id_dest->addr,2));
    if(id_dest->width== 2){
-     t1=(vaddr_read(id_dest->addr,3));
+     t1=(vaddr_read(id_dest->addr+2,3));
    }
    else
   t1=(vaddr_read(id_dest->addr+2,4)); 
