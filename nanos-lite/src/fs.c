@@ -58,6 +58,7 @@ ssize_t fs_read(int fd,void *buf,size_t len){
         Finfo temp=file_table[fd];
         size_t read_size= len < (fs_filesz(fd)-temp.open_offset) ? len : (fs_filesz(fd)-temp.open_offset);
     if(fd==FD_EVENTS){
+        Log("FD_EVNETS read");
         return events_read(buf,len);
     }
     if(fd<=2){
