@@ -96,7 +96,7 @@ ssize_t fs_write(int fd,const void *buf,size_t len){
         return i;
     }
     else if (fd==FD_FB){
-        fb_write(buf,file_table[fd].open_offset,len);
+        fb_write(buf,file_table[fd].open_offset+temp.disk_offset,write_size);
         Log("FD_FB write");
         return len;
     }
