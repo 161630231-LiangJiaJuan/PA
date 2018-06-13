@@ -44,6 +44,7 @@ void fb_write(const void *buf, off_t offset, size_t len) {
    // len=len/4;
     int y=offset/4/400;
     int x=offset/4%(400);
+    Log("fb_write");
     _draw_rect(buf,x,y,len/4,1);
 }
 
