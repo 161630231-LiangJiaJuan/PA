@@ -11,6 +11,9 @@
 
 // FIXME: this is temporary
 
+extern char  _end;
+static char *program_break = &_end;
+
 int _syscall_(int type, uintptr_t a0, uintptr_t a1, uintptr_t a2){
   int ret = -1;
   asm volatile("int $0x80": "=a"(ret): "a"(type), "b"(a0), "c"(a1), "d"(a2));
@@ -22,27 +25,40 @@ void _exit(int status) {
 }
 
 int _open(const char *path, int flags, mode_t mode) {
-  _exit(SYS_open);
+  //_exit(SYS_open);
+ // Log("_open %s",path);
+  return _syscall_ (SYS_open,(const char *)path,flags,mode);
 }
 
 int _write(int fd, void *buf, size_t count){
-  _exit(SYS_write);
+ // _exit(SYS_write);
+  return _syscall_(SYS_write,fd,(void *)buf,count);
 }
 
 void *_sbrk(intptr_t increment){
+  char *pre_end=program_break;
+  char *cur_end=program_break+increment;
+  if(_syscall_( SYS_brk,(intptr_t)cur_end,0,0)==0){
+      program_break=cur_end;
+      return (void *)pre_end;
+  }
+  else
   return (void *)-1;
 }
 
 int _read(int fd, void *buf, size_t count) {
-  _exit(SYS_read);
+  //_exit(SYS_read);
+  return _syscall_ (SYS_read,fd,(void *)buf,count);
 }
 
 int _close(int fd) {
-  _exit(SYS_close);
+ // _exit(SYS_close);
+ return _syscall_ (SYS_close,fd,0,0);
 }
 
 off_t _lseek(int fd, off_t offset, int whence) {
-  _exit(SYS_lseek);
+ return _syscall_ (SYS_lseek,fd,offset,whence);
+ // _exit(SYS_lseek);
 }
 
 // The code below is not used by Nanos-lite.

@@ -30,16 +30,12 @@ int min(int x, int y){
 
 void _draw_rect(const uint32_t *pixels, int x, int y, int w, int h) {
   
-    //uint32_t *p = fb;
-   // pixels=fb;
 
     int cp_bytes= min (w,_screen.width - x);
     cp_bytes*=4;
     for(int i=0;i<h&&y+i<_screen.height;i++){
-       // if(me)
-        //memcpy(&fb[x+(y+i)*_screen.width],pixels,w);
         memcpy(fb+x+(y+i)*_screen.width,pixels,cp_bytes);
-        pixels+=4;
+        pixels+=w;
     }
   
 }

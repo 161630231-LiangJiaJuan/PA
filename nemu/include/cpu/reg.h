@@ -49,6 +49,18 @@ union{
     };
     uint32_t eflags;
 };
+
+union{
+    struct{
+        uint32_t limit:16;
+        uint32_t base:32;
+        uint32_t      :16;
+    };
+    uint64_t idtr;
+};
+
+uint16_t CS;
+
 } CPU_state;
 
 extern CPU_state cpu;
